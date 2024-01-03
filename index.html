@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Бронирование билетов</title>
+</head>
+<body>
+  <div class="container">
+    <form>
+      <div class="input-group">
+        <label for="departure">Пункт отправления:</label>
+        <input type="text" id="departure" required>
+      </div>
+      <div class="input-group">
+        <label for="arrival">Пункт прибытия:</label>
+        <input type="text" id="arrival" required>
+      </div>
+      <div class="input-group">
+        <label for="depart-date">Дата отправления:</label>
+        <input type="text" id="depart-date" required>
+      </div>
+      <div class="input-group">
+        <label for="return-date">Дата возврата:</label>
+        <input type="text" id="return-date" required>
+      </div>
+      <div class="passenger-info">
+        <button id="passenger-btn">Пассажиры и класс</button>
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
