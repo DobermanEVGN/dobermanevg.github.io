@@ -17,7 +17,7 @@ $(function() {
         },
         success: function(data) {
           var results = [];
-          for (var i = 0; i < data.length; i++) {
+          for (var i = 0; i < Math.min(data.length, 5); i++) {
             // Форматирование данных для отображения в выпадающем списке
             var label = data[i].name + ' - ' + data[i].code;
             results.push({ label: label, value: data[i].name });
