@@ -18,11 +18,9 @@ $(function() {
         success: function(data) {
           var results = [];
           for (var i = 0; i < Math.min(data.length, 5); i++) {
-            var item = {
-              label: data[i].name,
-              code: data[i].code
-            };
-            results.push(item);
+            // Форматирование данных для отображения в выпадающем списке
+            var label = data[i].name + ' - ' + data[i].code;
+            results.push({ label: label, value: data[i].name, airportCode: data[i].code });
           }
           response(results);
         }
@@ -30,11 +28,10 @@ $(function() {
     },
     minLength: 3,
     select: function(event, ui) {
-      $(this).val(ui.item.label);
-      var airportCode = ui.item.code;
-      var inputId = $(this).attr('id');
-      $("#" + inputId + "-code").text(airportCode);
-      return false;
+      // Очистка элемента с кодом аэропорта, если он уже существует
+      $(this).siblings(".airport-code").remove();
+      // Добавление кода аэропорта справа от поля ввода
+      $("<span class='airport-code'>" + ui.item.airportCode + "</span>").insertAfter($(this));
     }
   });
 });
