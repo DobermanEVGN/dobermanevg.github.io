@@ -15,9 +15,13 @@ body {
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
+  display: grid; /* Use CSS Grid */
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-gap: 20px; /* Spacing between columns */
 }
 
 .input-group {
+  grid-column: span 2; /* Make the input groups span across both columns */
   margin-bottom: 20px;
 }
 
@@ -37,6 +41,7 @@ input[type="text"] {
 
 .passenger-info {
   text-align: center;
+  grid-column: span 2; /* Make the passenger info section span across both columns */
 }
 
 #passenger-btn {
@@ -50,7 +55,6 @@ input[type="text"] {
 
 .airport-code {
   margin-left: 10px;
-  margin-up: 3px;
   color: #999;
-  font-size: 0.7em; /* Decrease the font size as needed */
+  font-size: 0.8em; /* Decrease the font size as needed */
 }
