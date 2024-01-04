@@ -18,10 +18,11 @@ $(function() {
         success: function(data) {
           var results = [];
           for (var i = 0; i < Math.min(data.length, 5); i++) {
-            // Форматирование данных для отображения в выпадающем списке
-            var label = data[i].name;
-            var value = label + ' - ' + data[i].code;
-            results.push({ label: label, value: value });
+            var item = {
+              label: data[i].name,
+              code: data[i].code
+            };
+            results.push(item);
           }
           response(results);
         }
@@ -29,10 +30,15 @@ $(function() {
     },
     minLength: 3,
     select: function(event, ui) {
-      var airportCode = ui.item.value.split(' - ')[1];
       $(this).val(ui.item.label);
-      $("<span class='airport-code'>" + airportCode + "</span>").insertAfter($(this));
+      var airportCode = ui.item.code;
+      var inputId = $(this).attr('id');
+      $("#" + inputId + "-code").text(airportCode);
       return false;
     }
   });
+
+  // Создание элементов для отображения кода аэропорта
+  $("<span class='airport-code'></span>").insertAfter("#departure");
+  $("<span class='airport-code'></span>").insertAfter("#arrival");
 });
