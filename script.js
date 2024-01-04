@@ -37,8 +37,4 @@ $(function() {
       return false;
     }
   });
-
-  // Создание элементов для отображения кода аэропорта
-  $("<span class='airport-code'></span>").insertAfter("#departure");
-  $("<span class='airport-code'></span>").insertAfter("#arrival");
 });
