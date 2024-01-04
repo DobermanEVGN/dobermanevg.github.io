@@ -47,3 +47,8 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.airport-code {
+  margin-left: 10px;
+  color: #999;
+}
