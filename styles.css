@@ -51,4 +51,5 @@ input[type="text"] {
 .airport-code {
   margin-left: 10px;
   color: #999;
+  font-size: 0.8em; /* Decrease the font size as needed */
 }
