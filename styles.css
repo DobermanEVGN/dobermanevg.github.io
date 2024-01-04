@@ -21,6 +21,12 @@ body {
   margin-bottom: 20px;
 }
 
+.input-column {
+  display: grid; /* Use CSS Grid for the input fields */
+  grid-template-columns: 2fr 1fr; /* First column takes 2/3 of the space, second column takes 1/3 */
+  grid-gap: 10px; /* Spacing between columns */
+}
+
 label {
   display: block;
   margin-bottom: 5px;
@@ -28,7 +34,7 @@ label {
 }
 
 input[type="text"] {
-  width: 100%;
+  width: 100%; /* Adjust the width as needed based on the grid layout */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
