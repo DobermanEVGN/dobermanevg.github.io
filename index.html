@@ -1,84 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <title>Autocomplete Airport</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #00BFFF;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .passenger-info {
+      text-align: center;
+    }
+
+    #passenger-btn {
+      padding: 10px 20px;
+      background-color: #00BFFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
     .airport-code {
       margin-left: 10px;
       color: #999;
     }
   </style>
+  <title>Автозаполнение аэропортов</title>
 </head>
 <body>
-  <div>
-    <label for="departure">Departure:</label>
-    <input type="text" id="departure" name="departure">
-    <span id="departure-code" class="airport-code"></span>
-  </div>
-  <div>
-    <label for="arrival">Arrival:</label>
-    <input type="text" id="arrival" name="arrival">
-    <span id="arrival-code" class="airport-code"></span>
-  </div>
-  <div>
-    <label for="depart-date">Departure Date:</label>
-    <input type="text" id="depart-date" name="depart-date">
-  </div>
-  <div>
-    <label for="return-date">Return Date:</label>
-    <input type="text" id="return-date" name="return-date">
+  <div class="container">
+    <div class="input-group">
+      <label for="departure">Отправление:</label>
+      <input type="text" id="departure" name="departure">
+      <span id="departure-code" class="airport-code"></span>
+    </div>
+    <div class="input-group">
+      <label for="arrival">Прибытие:</label>
+      <input type="text" id="arrival" name="arrival">
+      <span id="arrival-code" class="airport-code"></span>
+    </div>
+    <div class="input-group">
+      <label for="depart-date">Дата отправления:</label>
+      <input type="text" id="depart-date" name="depart-date">
+    </div>
+    <div class="input-group">
+      <label for="return-date">Дата возвращения:</label>
+      <input type="text" id="return-date" name="return-date">
+    </div>
+    <div class="passenger-info">
+      <button id="passenger-btn">Подтвердить</button>
+    </div>
   </div>
 
-  <script>
-    $(function() {
-      $("#depart-date, #return-date").datepicker({
-        dateFormat: 'yy-mm-dd',
-        minDate: '+2M',
-        maxDate: '+4M'
-      });
-
-      $("#departure, #arrival").autocomplete({
-        source: function(request, response) {
-          $.ajax({
-            url: "https://autocomplete.travelpayouts.com/places2",
-            dataType: "json",
-            data: {
-              locale: "ru",
-              types: ["airport", "city"],
-              term: request.term
-            },
-            success: function(data) {
-              var results = [];
-              for (var i = 0; i < Math.min(data.length, 5); i++) {
-                var item = {
-                  label: data[i].name,
-                  code: data[i].code
-                };
-                results.push(item);
-              }
-              response(results);
-            }
-          });
-        },
-        minLength: 3,
-        select: function(event, ui) {
-          $(this).val(ui.item.label);
-          var airportCode = ui.item.code;
-          var inputId = $(this).attr('id');
-          $("#" + inputId + "-code").text(airportCode);
-          return false;
-        }
-      });
-
-      // Создание элементов для отображения кода аэропорта
-      $("<span class='airport-code'></span>").insertAfter("#departure");
-      $("<span class='airport-code'></span>").insertAfter("#arrival");
-    });
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
