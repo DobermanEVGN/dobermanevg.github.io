@@ -3,7 +3,7 @@ $(function() {
   $("#depart-date, #return-date").datepicker({
     dateFormat: 'yy-mm-dd',
     minDate: 0,
-    maxDate: '+2M',
+    maxDate: '+2M', 
     defaultDate: '+1w',
     language: 'ru'
   });
@@ -35,7 +35,7 @@ $(function() {
     minLength: 3,
     select: function(event, ui) {
       $(this).siblings(".airport-code").remove();
-      $("<span class='airport-code'>" + ui.item.airportCode + "</span>").insertAfter($(this));
+      $("<span class='airport-code'>" + ui.item.airportCode + "</span>").insertAfter($(this)); 
     }
   });
 
