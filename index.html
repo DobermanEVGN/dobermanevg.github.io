@@ -5,34 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker/dist/css/datepicker.min.css">
   <title>Бронирование билетов</title>
 </head>
 <body>
+
   <div class="container">
+
     <form>
+    
       <div class="input-group">
         <label for="departure">Пункт отправления:</label>
         <input type="text" id="departure" required>
       </div>
+
       <div class="input-group">
         <label for="arrival">Пункт прибытия:</label>
         <input type="text" id="arrival" required>
       </div>
+
       <div class="input-group">
         <label for="depart-date">Дата отправления:</label>
-        <input type="text" id="depart-date" required>
+        <input type="text" id="depart-date" class="datepicker-here" data-language='ru' required>
       </div>
+
       <div class="input-group">
         <label for="return-date">Дата возврата:</label>
-        <input type="text" id="return-date" required>
+        <input type="text" id="return-date" class="datepicker-here" data-language='ru' required>
       </div>
+
       <div class="passenger-info">
         <button id="passenger-btn">Пассажиры и класс</button>
       </div>
+      
     </form>
+
   </div>
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker/dist/js/datepicker.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script>
+    $(function() {
+      $("#departure, #arrival").autocomplete({
+        source: function(request, response) {
+          $.ajax({
+            url: "https://autocomplete.travelpayouts.com/places2",
+            dataType: "json",
+            data: {
+              locale: "ru",
+              types: ["airport", "city"],
+              term: request.term
+            },
+            success: function(data) {
+              var results = [];
+              for (var i = 0; i < Math.min(data.length, 5); i++) {
+                var label = data[i].name + ' - ' + data[i].code;
+                results.push({
+                  label: label,
+                  value: data[i].name,
+                  airportCode: data[i].code
+                });
+              }
+              response(results);
+            }
+          });
+        },
+        minLength: 3,
+        select: function(event, ui) {
+          $(this).siblings(".airport-code").remove();
+          $("<span class='airport-code'>" + ui.item.airportCode + "</span>").insertAfter($(this));
+        }
+      });
+
+      var minDate = new Date();
+      var maxDate = moment().add(2, 'months').toDate();
+
+      $("#depart-date").datepicker({
+        dateFormat: 'yyyy-mm-dd',
+        minDate: minDate,
+        maxDate: maxDate,
+        language: 'ru'
+      });
+
+      $("#return-date").datepicker({
+        dateFormat: 'yyyy-mm-dd',
+        minDate: minDate,
+        maxDate: maxDate,
+        language: 'ru'
+      });
+    });
+  </script>
+
 </body>
 </html>
