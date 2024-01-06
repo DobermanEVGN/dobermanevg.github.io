@@ -10,11 +10,11 @@ body {
 }
 
 .container {
-  max-width: 600px; 
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 8px;  
+  border-radius: 8px;
 }
 
 .input-group {
@@ -35,8 +35,15 @@ input[type="text"] {
   outline: none;
 }
 
+#email {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .passenger-info {
-  text-align: center; 
+  text-align: center;
 }
 
 #passenger-btn {
@@ -45,11 +52,11 @@ input[type="text"] {
   color: #fff;
   border: none;
   border-radius: 4px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-.airport-code {
-  margin-left: 10px;
+.hint {
+  display: block; /* Для отображения на новой строке */
   color: #999;
   font-size: 0.7em;
 }
