@@ -75,10 +75,10 @@ input[type="text"] {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: 50px auto; /* Используем фиксированное значение */
   padding: 20px;
   border: 1px solid #888;
-  width: 30%;
+  width: 400px; /* Можно также изменить на фиксированную ширину в пикселях */
 }
 
 .close {
