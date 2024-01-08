@@ -15,18 +15,18 @@
     <form>
     
       <div class="input-group">
-        <label for="departure">Пункт отправления:</label>
+        <label for="departure">Откуда:</label>
         <input type="text" id="departure" required>
         <span class="hint" id="departure-hint"></span>
       </div>
 
       <div class="input-group">
-        <label for="arrival">Пункт прибытия:</label>
+        <label for="arrival">Куда:</label>
         <input type="text" id="arrival" required>
         <span class="hint" id="arrival-hint"></span>
       </div>
 
-      <div class="input-group" style="margin-top: 35px">
+      <div class="input-group" style="margin-top: 32px; margin-bottom: 14px">
   	<label><b>Выберите одну или две даты:</b></label>  
       </div>
 
@@ -84,5 +84,39 @@ $(function() {
 });
 
 </script>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Выберите количество пассажиров и класс:</h2>
+    <div class="passenger-info">
+      <div>
+        <label for="adultsCount">12 лет и старше:</label>
+        <button class="counter-btn" id="adultsMinusBtn">-</button>
+        <span id="adultsCount">0</span>
+        <button class="counter-btn" id="adultsPlusBtn">+</button>
+      </div>
+      <div>
+        <label for="childrenCount">от 2 до 12 лет:</label>
+        <button class="counter-btn" id="childrenMinusBtn">-</button>
+        <span id="childrenCount">0</span>
+        <button class="counter-btn" id="childrenPlusBtn">+</button>
+      </div>
+      <div>
+        <label for="infantsCount">до 2 лет:</label>
+        <button class="counter-btn" id="infantsMinusBtn">-</button>
+        <span id="infantsCount">0</span>
+        <button class="counter-btn" id="infantsPlusBtn">+</button>
+      </div>
+      <div>
+        <label for="businessClassCheckbox">Бизнес-класс</label>
+        <input type="checkbox" id="businessClassCheckbox">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </body>
 </html>
