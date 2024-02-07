@@ -3,7 +3,7 @@ $(function() {
   $("#departure, #arrival").autocomplete({
     source: function(request, response) {
       $.ajax({
-        url: "https://autocomplete.travelpayouts.com/places2", 
+        url: "https://autocomplete.travelpayouts.com/places2",
         dataType: "json",
         data: {
           locale: "ru",
@@ -28,12 +28,12 @@ $(function() {
 
           }
         
-          response(results);  
+          response(results);
         }
       });
     },
     select: function(event, ui) {
-      $(this).val(ui.item.value);  
+      $(this).val(ui.item.value);   
       
       var id = this.id === "departure" ? "departure-hint" : "arrival-hint";
       
@@ -48,27 +48,12 @@ $(function() {
   var childrenCount = 0;
   var infantsCount = 0;
 
-// Обновление информации о количестве пассажиров и классе
-function updateCounts() {
-  $("#adultsCount").text(adultsCount);
-  $("#childrenCount").text(childrenCount);
-  $("#infantsCount").text(infantsCount);
-  $("#isBusinessClass").text(isBusinessClass ? "Да" : "Нет");
-  
-  // Проверка для блокировки кнопки "-" у "12 лет и старше" 
-  if (adultsCount === infantsCount) {
-    $("#adultsMinusBtn").prop('disabled', true);
-  } else {
-    $("#adultsMinusBtn").prop('disabled', false);
+  // Обновление количества пассажиров
+  function updateCounts() {
+    $("#adultsCount").text(adultsCount);
+    $("#childrenCount").text(childrenCount);
+    $("#infantsCount").text(infantsCount);
   }
-}
-
-var isBusinessClass = false;
-
-$("#businessClassCheckbox").change(function() {
-  isBusinessClass = $(this).is(":checked");
-  updateCounts();
-});
 
   $("#adultsMinusBtn").click(function() {
     if (adultsCount > 1) {
@@ -78,10 +63,8 @@ $("#businessClassCheckbox").change(function() {
   });
 
   $("#adultsPlusBtn").click(function() {
-    if (adultsCount + childrenCount + infantsCount < 9) {
-      adultsCount++;
-      updateCounts();
-    }
+    adultsCount++;
+    updateCounts();
   });
 
   $("#childrenMinusBtn").click(function() {
@@ -92,10 +75,8 @@ $("#businessClassCheckbox").change(function() {
   });
 
   $("#childrenPlusBtn").click(function() {
-    if (adultsCount + childrenCount + infantsCount < 9 && adultsCount + childrenCount < 9) {
-      childrenCount++;
-      updateCounts();
-    }
+    childrenCount++;
+    updateCounts();
   });
 
   $("#infantsMinusBtn").click(function() {
@@ -106,13 +87,13 @@ $("#businessClassCheckbox").change(function() {
   });
 
   $("#infantsPlusBtn").click(function() {
-    if (infantsCount < adultsCount && adultsCount + childrenCount + infantsCount < 9) {
-      infantsCount++;
-      updateCounts();
-    }
+    infantsCount++;
+    updateCounts();
   });
 
-  // ... (existing code)
+  $("#confirm-btn").click(function() {
+    $("#modal").hide();
+  });
 
   var minDate = new Date();
   
@@ -137,7 +118,7 @@ $("#businessClassCheckbox").change(function() {
   $("#adultsCount").text(adultsCount);
 
   $("#passenger-btn").click(function() {
-    $("#modal").show(); 
+    $("#modal").show();
   });
 
   $(".close").click(function() {
