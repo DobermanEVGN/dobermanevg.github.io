@@ -131,22 +131,16 @@ input[type="text"] {
   padding: 5px;
 }
 
-.passenger-info > div {
-  display: flex;
-  align-items: center; 
-}
-
 .passenger-info > div:last-child {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+display: flex;
+align-items: center;
 }
 
 .passenger-info label {
-  width: 150px;
-  text-align: right; 
+width: 150px;
+text-align: right;
 }
 
-.passenger-info > div:last-child label {
-  margin-left: -2px; 
+#businessClassCheckbox {
+margin-left: 10px;
 }
