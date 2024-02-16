@@ -119,7 +119,7 @@ $(function() {
     }
   });
 
-  $(".modal-content").append('<button type="button" id="confirm-btn">Подтвердить</button>');
+  $(".modal-content").append('<button type="button" id="confirm-btn">OK</button>');
 
   $("#confirm-btn").click(function() {
     $("#modal").hide();  
@@ -173,3 +173,6 @@ $(function() {
   });   
 
 });
+
+$(".modal-content").append('<button style="position: absolute; bottom: 10px; right: 20px;" type="button" id="confirm-btn">OK</button>');
+
