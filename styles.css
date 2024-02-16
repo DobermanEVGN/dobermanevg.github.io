@@ -147,3 +147,7 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.modal-content {
+  height: 285px; 
+}
