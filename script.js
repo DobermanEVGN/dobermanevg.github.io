@@ -194,6 +194,7 @@ $(function() {
     tg.MainButton.onclick = function() {
       tg.sendData(msg);
     }
+    tg.MainButton.show(); 
 
   });
 
