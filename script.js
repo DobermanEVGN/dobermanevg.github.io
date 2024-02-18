@@ -192,11 +192,12 @@ $(function() {
 
     tg.MainButton.text = 'Отправить в Telegram';
     tg.MainButton.isVisible = true; 
+    tg.MainButton.show(); 
 
     tg.MainButton.onclick = function() {
       tg.sendData(msg);
     }
-    tg.MainButton.show(); 
+    
 
   });
 
