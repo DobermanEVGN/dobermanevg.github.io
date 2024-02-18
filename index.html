@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker/dist/css/datepicker.min.css">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <title>Бронирование билетов</title>
 </head>
 
@@ -15,7 +17,7 @@
   <div class="container">
 
     <form>
-    
+
       <div class="input-group">
         <label for="departure">Откуда:</label>
         <input type="text" id="departure" required>
@@ -29,7 +31,7 @@
       </div>
 
       <div class="input-group" style="margin-top: 32px; margin-bottom: 14px">
-  	<label><b>Выберите одну или две даты:</b></label>  
+        <label><b>Выберите одну или две даты:</b></label>
       </div>
 
       <div class="input-group">
@@ -44,13 +46,13 @@
 
       <div class="input-group">
         <label for="email">E-mail адрес (на него придет уведомление, если билет будет найден):</label>
-        <input type="text" id="email"> 
+        <input type="text" id="email">
       </div>
 
       <div class="input-group">
         <button type="button" id="passenger-btn">Пассажиры и класс</button>
       </div>
-      
+
     </form>
 
   </div>
@@ -61,64 +63,63 @@
   <script src="js/datepicker.min.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
   <script src="script.js"></script>
+
   <script>
 
-$(function() {
+    $(function() {
+    
+      var minDate = new Date();
+      var maxDate = moment().add(2, 'months').toDate();
 
-  // Код для ограничения
-  var minDate = new Date();
-  var maxDate = moment().add(2, 'months').toDate();  
+      $("#depart-date").datepicker({
+         dateFormat: 'yyyy-mm-dd',
+         minDate: minDate,
+         maxDate: maxDate,
+         autoClose: true
+      });
 
-  $("#depart-date").datepicker({
-     dateFormat: 'yyyy-mm-dd',
-     minDate: minDate,
-     maxDate: maxDate,
-     autoClose: true
-  });
+      $("#return-date").datepicker({
+         dateFormat: 'yyyy-mm-dd',
+         minDate: minDate,
+         maxDate: maxDate,
+         autoClose: true
+      });
 
-  $("#return-date").datepicker({
-     dateFormat: 'yyyy-mm-dd',
-     minDate: minDate, 
-     maxDate: maxDate,
-     autoClose: true
-  });
+    });
 
-});
+  </script>
 
-</script>
-
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Выберите количество пассажиров и класс:</h2>
-    <div class="passenger-info">
-      <div>
-        <label for="adultsCount">12 лет и старше:</label>
-        <button class="counter-btn" id="adultsMinusBtn">-</button>
-        <span id="adultsCount">0</span>
-        <button class="counter-btn" id="adultsPlusBtn">+</button>
-      </div>
-      <div>
-        <label for="childrenCount">от 2 до 12 лет:</label>
-        <button class="counter-btn" id="childrenMinusBtn">-</button>
-        <span id="childrenCount">0</span>
-        <button class="counter-btn" id="childrenPlusBtn">+</button>
-      </div>
-      <div>
-        <label for="infantsCount">до 2 лет:</label>
-        <button class="counter-btn" id="infantsMinusBtn">-</button>
-        <span id="infantsCount">0</span>
-        <button class="counter-btn" id="infantsPlusBtn">+</button>
-      </div>
-      <div>
-        <label for="businessClassCheckbox">Бизнес-класс</label>
-        <input type="checkbox" id="businessClassCheckbox">
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Выберите количество пассажиров и класс:</h2>
+      <div class="passenger-info">
+        <div>
+          <label for="adultsCount">12 лет и старше:</label>
+          <button class="counter-btn" id="adultsMinusBtn">-</button>
+          <span id="adultsCount">0</span>
+          <button class="counter-btn" id="adultsPlusBtn">+</button>
+        </div>
+        <div>
+          <label for="childrenCount">от 2 до 12 лет:</label>
+          <button class="counter-btn" id="childrenMinusBtn">-</button>
+          <span id="childrenCount">0</span>
+          <button class="counter-btn" id="childrenPlusBtn">+</button>
+        </div>
+        <div>
+          <label for="infantsCount">до 2 лет:</label>
+          <button class="counter-btn" id="infantsMinusBtn">-</button>
+          <span id="infantsCount">0</span>
+          <button class="counter-btn" id="infantsPlusBtn">+</button>
+        </div>
+        <div>
+          <label for="businessClassCheckbox">Бизнес-класс</label>
+          <input type="checkbox" id="businessClassCheckbox">
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
 
 </body>
+
 </html>
