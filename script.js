@@ -190,6 +190,7 @@ $(function() {
     const tg = window.Telegram.WebApp;
 
     tg.MainButton.text = 'Отправить в Telegram';
+    tg.MainButton.isVisible = true; 
 
     tg.MainButton.onclick = function() {
       tg.sendData(msg);
