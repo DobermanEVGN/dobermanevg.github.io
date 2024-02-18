@@ -4,7 +4,7 @@ $(function() {
     source: function(request, response) {
       $.ajax({
         url: "https://autocomplete.travelpayouts.com/places2",
-        dataType: "json", 
+        dataType: "json",
         data: {
           locale: "ru",
           types: ["airport", "city"],
@@ -45,7 +45,7 @@ $(function() {
   });
 
   var adultsCount = 1;
-  var childrenCount = 0; 
+  var childrenCount = 0;
   var infantsCount = 0;
 
   var isBusinessClass = false;
@@ -63,7 +63,7 @@ $(function() {
   }
 
   $("#businessClassCheckbox").change(function() {
-    isBusinessClass = $(this).is(":checked"); 
+    isBusinessClass = $(this).is(":checked");
     updatePassengerInfo();
   });
 
@@ -71,7 +71,7 @@ $(function() {
     if (adultsCount > 1) {
       adultsCount--;
       updateCounts();
-      updatePassengerInfo(); 
+      updatePassengerInfo();
     }
   });
 
@@ -84,7 +84,7 @@ $(function() {
   });
 
   $("#childrenMinusBtn").click(function() {
-    if (childrenCount > 0) {  
+    if (childrenCount > 0) {
       childrenCount--;
       updateCounts();
       updatePassengerInfo();
@@ -92,7 +92,7 @@ $(function() {
   });
 
   $("#childrenPlusBtn").click(function() {
-    if (adultsCount + childrenCount + infantsCount < 9 && 
+    if (adultsCount + childrenCount + infantsCount < 9 &&
         adultsCount + childrenCount < 9) {
         
       childrenCount++;
@@ -105,12 +105,12 @@ $(function() {
     if (infantsCount > 0) {
       infantsCount--;
       updateCounts();
-      updatePassengerInfo();  
+      updatePassengerInfo();
     }
   });
 
   $("#infantsPlusBtn").click(function() {
-    if (infantsCount < adultsCount && 
+    if (infantsCount < adultsCount &&
         adultsCount + childrenCount + infantsCount < 9) {
         
       infantsCount++;
@@ -122,7 +122,7 @@ $(function() {
   $(".modal-content").append('<button type="button" id="confirm-btn">OK</button>');
 
   $("#confirm-btn").click(function() {
-    $("#modal").hide();  
+    $("#modal").hide();
     updatePassengerInfo();
   });
    
@@ -137,7 +137,7 @@ $(function() {
 
   updatePassengerInfo();
 
-  $("#adultsPlusBtn, #adultsMinusBtn").click(updatePassengerInfo);  
+  $("#adultsPlusBtn, #adultsMinusBtn").click(updatePassengerInfo);
   $("#childrenPlusBtn, #childrenMinusBtn").click(updatePassengerInfo);
   $("#infantsPlusBtn, #infantsMinusBtn").click(updatePassengerInfo);
   $("#businessClassCheckbox").change(updatePassengerInfo);
@@ -157,7 +157,7 @@ $(function() {
 
   $("#return-date").datepicker({
      dateFormat: 'yyyy-mm-dd',
-     minDate: minDate,  
+     minDate: minDate,
      maxDate: maxDate,
      autoClose: true
   });
@@ -165,52 +165,36 @@ $(function() {
   $("#adultsCount").text(adultsCount);
 
   $("#passenger-btn").click(function() {
-    $("#modal").show();  
+    $("#modal").show();
   });
 
   $(".close").click(function() {
     $("#modal").hide();
-  });   
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const departure = document.getElementById('departure');
+    const arrival = document.getElementById('arrival');
+    const departDate = document.getElementById('depart-date');
+    const returnDate = document.getElementById('return-date');
+    const email = document.getElementById('email');
+
+    const adultsCount = document.getElementById('adultsCount').textContent;
+    const childrenCount = document.getElementById('childrenCount').textContent;
+    const infantsCount = document.getElementById('infantsCount').textContent;
+    const isBusinessClass = document.getElementById('businessClassCheckbox').checked;
+
+    let msg = `Откуда: ${departure.value}\nКуда: ${arrival.value}\nДата 1: ${departDate.value}\nДата 2: ${returnDate.value}\nEmail: ${email.value}\n\nПассажиры:\nВзрослых: ${adultsCount}\nДетей: ${childrenCount}\nМладенцев: ${infantsCount}\nКласс: ${isBusinessClass ? 'Бизнес' : 'Эконом'}`;
+
+    const tg = window.Telegram.WebApp;
+
+    tg.MainButton.text = 'Отправить в Telegram';
+
+    tg.MainButton.onclick = function() {
+      tg.sendData(msg);
+    }
+
+  });
 
 });
-
-$(".modal-content").append('<button style="position: absolute; bottom: 10px; right: 20px;" type="button" id="confirm-btn">OK</button>');
-
-document.addEventListener('DOMContentLoaded', function() {
-
-  const departure = document.getElementById('departure');
-  const arrival = document.getElementById('arrival');
-  const departDate = document.getElementById('depart-date');
-  const returnDate = document.getElementById('return-date');
-  const email = document.getElementById('email');
-
-  const adultsCount = document.getElementById('adultsCount').textContent;
-  const childrenCount = document.getElementById('childrenCount').textContent;
-  const infantsCount = document.getElementById('infantsCount').textContent;
-  const isBusinessClass = document.getElementById('businessClassCheckbox').checked;
-
-  let msg = `Откуда: ${departure.value}
-Куда: ${arrival.value}
-Дата 1: ${departDate.value}  
-Дата 2: ${returnDate.value}
-Email: ${email.value}
-
-Пассажиры:
-Взрослых: ${adultsCount}  
-Детей: ${childrenCount}
-Младенцев: ${infantsCount}
-Класс: ${isBusinessClass ? 'Бизнес' : 'Эконом'}`;
-
-  const tg = window.Telegram.WebApp;
-
-  tg.MainButton.text = 'Отправить в Telegram';
-
-  tg.MainButton.onclick = function() {
-    tg.sendData(msg);
-  }
-
-});
-});
-
-$(".modal-content").append('<button style="position: absolute; bottom: 10px; right: 20px;" type="button" id="confirm-btn">OK</button>');
-
