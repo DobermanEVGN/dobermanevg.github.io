@@ -1,7 +1,18 @@
 
 
 $(function() {
-  
+  document.addEventListener('DOMContentLoaded', function() {
+    let tg = window.Telegram.WebApp;
+    tg.expand(); //расширяем на все окно
+
+    tg.MainButton.text = 'Отправить в Telegram';
+    tg.MainButton.isVisible = true; 
+    tg.MainButton.show(); 
+
+    tg.MainButton.onclick = function() {
+      tg.close()
+    }
+  });
 
   $("#departure, #arrival").autocomplete({
     source: function(request, response) {
