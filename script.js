@@ -9,9 +9,7 @@ $(function() {
   tg.MainButton.isVisible = true; 
   tg.MainButton.show(); 
 
-  tg.MainButton.onclick = function() {
-    tg.close()
-  }
+  
 
   $("#departure, #arrival").autocomplete({
     source: function(request, response) {
@@ -184,7 +182,9 @@ $(function() {
   $(".close").click(function() {
     $("#modal").hide();
   });
-
+  tg.MainButton.onclick = function() {
+    tg.close()
+  }
  
 
 });
