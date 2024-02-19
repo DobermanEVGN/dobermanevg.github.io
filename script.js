@@ -2,7 +2,7 @@
 
 $(function() {
   let tg = window.Telegram.WebApp;
-  tg.expand(); //расширяем на все окно
+  
 
   
 
