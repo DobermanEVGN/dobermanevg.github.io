@@ -12,6 +12,7 @@ tg.MainButton.show();
 
 tg.MainButton.onclick = function() {
   tg.sendData('Test message'); 
+  tg.close()
 }
 
 $(function() {
