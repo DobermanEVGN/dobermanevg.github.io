@@ -1,20 +1,7 @@
 
 
 $(function() {
-  let tg = window.Telegram.WebApp;
   
-
-  
-
-    
-
-  tg.MainButton.text = 'Отправить в Telegram';
-  tg.MainButton.isVisible = true; 
-  tg.MainButton.show(); 
-
-  tg.MainButton.onclick = function() { 
-  tg.close()
-  }
 
   $("#departure, #arrival").autocomplete({
     source: function(request, response) {
