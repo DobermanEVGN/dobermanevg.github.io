@@ -10,11 +10,9 @@ tg.MainButton.text = 'Отправить в Telegram';
 tg.MainButton.isVisible = true; 
 tg.MainButton.show(); 
 
-Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    // Ваш обработчик события
-    // Например, отправка данных боту
-    tg.sendData("Test message");
-});
+tg.MainButton.onclick = function() {
+  tg.sendData('Test message'); 
+}
 
 $(function() {
 
