@@ -182,9 +182,10 @@ $(function() {
   $(".close").click(function() {
     $("#modal").hide();
   });
-  tg.MainButton.onclick = function() {
-    tg.close()
-  }
+ 
  
 
 });
+tg.MainButton.onclick = function() {
+  tg.close()
+}
