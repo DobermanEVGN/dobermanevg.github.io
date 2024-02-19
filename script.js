@@ -1,33 +1,18 @@
-let tg = window.Telegram.WebApp;
+const tgButton = document.getElementById('tg-button'); 
 
-if (tg) {
+// Вешаем обработчик события click 
+tgButton.addEventListener('click', function() {
+  closeApp(); 
+});
 
-  tg.expand();
-
-  tg.MainButton.text = 'Отправить в Telegram';
-  
-  tg.MainButton.show();
-
-  function closeApp() {
+// Функция закрытия приложения  
+function closeApp() {
+  if (tg) {
     tg.close();
-  }
-
-  tg.MainButton.onclick = function() {
-    closeApp();
-  };
-
-} else {
-
-  // Код для закрытия приложения в браузере
-  function closeApp() {
+  } else {
     window.close();
   }
-
-  document.getElementById("tg-button").onclick = function() {
-    closeApp();
-  }; 
-
-}
+};
 
 $(function() {
   
