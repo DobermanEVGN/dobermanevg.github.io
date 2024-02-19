@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
   tg.MainButton.show(); 
 
   tg.MainButton.onclick = function() {
-  tg.sendData(msg);
+  tg.sendData('Test message');
   }
 });
 $(function() {
