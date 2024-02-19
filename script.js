@@ -4,8 +4,12 @@ tg.expand(); //расширяем на все окно
 tg.MainButton.text = 'Отправить в Telegram';
 tg.MainButton.isVisible = true; 
 tg.MainButton.show(); 
+function closeApp() {
+  tg.close();
+}
+
 tg.MainButton.onclick = function() {
-  tg.close()
+  closeApp();
 };
 
 
