@@ -173,6 +173,8 @@ $(function() {
   });
 
   document.addEventListener('DOMContentLoaded', function() {
+    const tg = window.Telegram.WebApp;
+    tg.expand(); //расширяем на все окно
 
     const departure = document.getElementById('departure');
     const arrival = document.getElementById('arrival');
@@ -187,8 +189,7 @@ $(function() {
 
     let msg = `Откуда: ${departure.value}\nКуда: ${arrival.value}\nДата 1: ${departDate.value}\nДата 2: ${returnDate.value}\nEmail: ${email.value}\n\nПассажиры:\nВзрослых: ${adultsCount}\nДетей: ${childrenCount}\nМладенцев: ${infantsCount}\nКласс: ${isBusinessClass ? 'Бизнес' : 'Эконом'}`;
 
-    const tg = window.Telegram.WebApp;
-    tg.expand(); //расширяем на все окно
+    
 
     tg.MainButton.text = 'Отправить в Telegram';
     tg.MainButton.isVisible = true; 
