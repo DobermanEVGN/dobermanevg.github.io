@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-  const tg = window.Telegram.WebApp;
+  let tg = window.Telegram.WebApp;
   
   tg.MainButton.text = 'Test';
   tg.MainButton.show();
