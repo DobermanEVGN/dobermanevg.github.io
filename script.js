@@ -3,18 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let tg = window.Telegram.WebApp;
   tg.expand(); //расширяем на все окно
 
-  const departure = document.getElementById('departure');
-  const arrival = document.getElementById('arrival');
-  const departDate = document.getElementById('depart-date');
-  const returnDate = document.getElementById('return-date');
-  const email = document.getElementById('email');
-
-  const adultsCount = document.getElementById('adultsCount').textContent;
-  const childrenCount = document.getElementById('childrenCount').textContent;
-  const infantsCount = document.getElementById('infantsCount').textContent;
-  const isBusinessClass = document.getElementById('businessClassCheckbox').checked;
-
-  let msg = `Откуда: ${departure.value}\nКуда: ${arrival.value}\nДата 1: ${departDate.value}\nДата 2: ${returnDate.value}\nEmail: ${email.value}\n\nПассажиры:\nВзрослых: ${adultsCount}\nДетей: ${childrenCount}\nМладенцев: ${infantsCount}\nКласс: ${isBusinessClass ? 'Бизнес' : 'Эконом'}`;
+  
 
     
 
@@ -23,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   tg.MainButton.show(); 
 
   tg.MainButton.onclick = function() {
-    tg.sendData('Test message');
+  tg.sendData('Test message'); 
   }
 });
 $(function() {
