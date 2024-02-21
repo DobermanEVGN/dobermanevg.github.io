@@ -1,29 +1,10 @@
-const tgButton = document.getElementById('tg-button'); 
-
-// Вешаем обработчик события click 
-tgButton.addEventListener('click', function() {
-  closeApp(); 
-});
-
-// Функция закрытия приложения  
-function closeApp() {
-  if (tg) {
-    tg.close();
-  } else {
-    window.close();
-  }
-};
-
 $(function() {
-  
-  
-  
 
   $("#departure, #arrival").autocomplete({
     source: function(request, response) {
       $.ajax({
         url: "https://autocomplete.travelpayouts.com/places2",
-        dataType: "json",
+        dataType: "json", 
         data: {
           locale: "ru",
           types: ["airport", "city"],
@@ -64,7 +45,7 @@ $(function() {
   });
 
   var adultsCount = 1;
-  var childrenCount = 0;
+  var childrenCount = 0; 
   var infantsCount = 0;
 
   var isBusinessClass = false;
@@ -82,7 +63,7 @@ $(function() {
   }
 
   $("#businessClassCheckbox").change(function() {
-    isBusinessClass = $(this).is(":checked");
+    isBusinessClass = $(this).is(":checked"); 
     updatePassengerInfo();
   });
 
@@ -90,7 +71,7 @@ $(function() {
     if (adultsCount > 1) {
       adultsCount--;
       updateCounts();
-      updatePassengerInfo();
+      updatePassengerInfo(); 
     }
   });
 
@@ -103,7 +84,7 @@ $(function() {
   });
 
   $("#childrenMinusBtn").click(function() {
-    if (childrenCount > 0) {
+    if (childrenCount > 0) {  
       childrenCount--;
       updateCounts();
       updatePassengerInfo();
@@ -111,7 +92,7 @@ $(function() {
   });
 
   $("#childrenPlusBtn").click(function() {
-    if (adultsCount + childrenCount + infantsCount < 9 &&
+    if (adultsCount + childrenCount + infantsCount < 9 && 
         adultsCount + childrenCount < 9) {
         
       childrenCount++;
@@ -124,12 +105,12 @@ $(function() {
     if (infantsCount > 0) {
       infantsCount--;
       updateCounts();
-      updatePassengerInfo();
+      updatePassengerInfo();  
     }
   });
 
   $("#infantsPlusBtn").click(function() {
-    if (infantsCount < adultsCount &&
+    if (infantsCount < adultsCount && 
         adultsCount + childrenCount + infantsCount < 9) {
         
       infantsCount++;
@@ -141,7 +122,7 @@ $(function() {
   $(".modal-content").append('<button type="button" id="confirm-btn">OK</button>');
 
   $("#confirm-btn").click(function() {
-    $("#modal").hide();
+    $("#modal").hide();  
     updatePassengerInfo();
   });
    
@@ -156,7 +137,7 @@ $(function() {
 
   updatePassengerInfo();
 
-  $("#adultsPlusBtn, #adultsMinusBtn").click(updatePassengerInfo);
+  $("#adultsPlusBtn, #adultsMinusBtn").click(updatePassengerInfo);  
   $("#childrenPlusBtn, #childrenMinusBtn").click(updatePassengerInfo);
   $("#infantsPlusBtn, #infantsMinusBtn").click(updatePassengerInfo);
   $("#businessClassCheckbox").change(updatePassengerInfo);
@@ -176,7 +157,7 @@ $(function() {
 
   $("#return-date").datepicker({
      dateFormat: 'yyyy-mm-dd',
-     minDate: minDate,
+     minDate: minDate,  
      maxDate: maxDate,
      autoClose: true
   });
@@ -184,14 +165,15 @@ $(function() {
   $("#adultsCount").text(adultsCount);
 
   $("#passenger-btn").click(function() {
-    $("#modal").show();
+    $("#modal").show();  
   });
 
   $(".close").click(function() {
     $("#modal").hide();
-  });
- 
- 
+  });   
 
 });
+
+$(".modal-content").append('<button style="position: absolute; bottom: 10px; right: 20px;" type="button" id="confirm-btn">OK</button>');
+
 
