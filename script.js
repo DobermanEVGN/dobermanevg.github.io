@@ -190,6 +190,7 @@ tg.MainButton.isVisible = true;
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 	tg.MainButton.hide()
+	tg.sendData('Dorou')
 });
 
 
