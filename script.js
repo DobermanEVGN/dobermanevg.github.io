@@ -1,16 +1,3 @@
-let tg = window.Telegram.WebApp;
-
-tg.expand();
-
-tg.MainButton.textColor = '#FFFFFF';
-tg.MainButton.color = '#2cab37';
-
-tg.MainButton.text = 'Кнопочка';
-tg.MainButton.isVisible = true;
-
-Telegram.WebApp.onEvent("mainButtonClicked", function(){
-	tg.MainButton.hide()
-});
 
 $(function() {
 
@@ -191,3 +178,17 @@ $(function() {
 $(".modal-content").append('<button style="position: absolute; bottom: 10px; right: 20px;" type="button" id="confirm-btn">OK</button>');
 
 
+
+let tg = window.Telegram.WebApp;
+
+tg.expand();
+
+tg.MainButton.textColor = '#FFFFFF';
+tg.MainButton.color = '#2cab37';
+
+tg.MainButton.text = 'Кнопочка';
+tg.MainButton.isVisible = true;
+
+Telegram.WebApp.onEvent("mainButtonClicked", function(){
+	tg.MainButton.hide()
+});
