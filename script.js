@@ -315,7 +315,7 @@ tg.MainButton.textColor = '#FFFFFF';
 tg.MainButton.color = '#1877f2';
 
 
-tg.MainButton.text = 'Кнопочка';  
+tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
 
 tg.MainButton.isVisible = true;
 
