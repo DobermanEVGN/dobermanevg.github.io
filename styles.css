@@ -6,9 +6,10 @@
 
 body {
   background-image: linear-gradient(315deg, #012169, #1877F2);
-  background-size:100% 100%;
-  font-family: Arial, sans-serif; 
-}
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  font-family: Arial, sans-serif;
 
 .container {
   max-width: 600px;
