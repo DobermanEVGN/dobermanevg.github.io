@@ -50,7 +50,7 @@ input[type="text"] {
 
 #passenger-btn {
   padding: 10px 20px;
-  background-color: #00BFFF;
+  background-color: #1569d7;
   color: #fff;
   border: none;    
   border-radius: 4px;
@@ -101,7 +101,7 @@ input[type="text"] {
   padding: 5px 10px;  
   margin: 5px;
   border: none;
-  background-color: #00BFFF;
+  background-color: #1569d7;
   color: white;    
   border-radius: 4px;
   cursor: pointer;  
@@ -143,11 +143,15 @@ input[type="text"] {
   right: 20px;
   bottom: 20px;
   padding: 10px 20px;
-  background-color: #00BFFF;
+  background-color: #1569d7;
   color: #fff;  
   border: none;     
   border-radius: 4px;
   cursor: pointer;
+}
+
+.modal-content {
+  height: 285px; 
 }
 
 .modal-content {
