@@ -30,11 +30,6 @@ $(function() {
     },
     select: function(event, ui) { 
       $(this).val(ui.item.value); 
-
-      var id = this.id === "departure" ? "departure-hint" : "arrival-hint";
-
-      $("#" + id).text("Вы выбрали: " + ui.item.label);
-
       return false;
     },
     minLength: 3
@@ -70,11 +65,6 @@ $(function() {
     },
     select: function(event, ui) {
       $(this).val(ui.item.value);
-
-      var id = this.id === "departure" ? "departure-hint" : "arrival-hint";
-
-      $("#" + id).text("Вы выбрали: " + ui.item.label);
-
       return false; 
     },
     minLength: 3
@@ -212,8 +202,6 @@ $(function() {
   });
 
 
-  $(".modal-content").append('<button type="button" id="confirm-btn">OK</button>');
-
   $("#confirm-btn").click(function() {
 
     $("#modal").hide();
@@ -260,32 +248,20 @@ $(function() {
   var maxDate = moment().add(2, 'months').toDate();
 
   $("#depart-date").datepicker({
-
     dateFormat: 'yyyy-mm-dd',
-
-    minDate: minDate,
-
-    maxDate: maxDate,
-
+    minDate: new Date(),
+    maxDate: moment().add(2, 'months').toDate(),
     autoClose: true,
-
-    range: true
-
+    range: true,
+    multipleDatesSeparator: '; '
   });
-
 
   $("#modal").on("hide", function() {
-
     var dates = $("#depart-date").val().split(" - ");
-
     var departDate = dates[0];
-
     var returnDate = dates[1];
-
     $("#depart-date").val(departDate + ";" + returnDate);
-
   });
-
 
   $("#passenger-btn").click(function() {
 
@@ -328,6 +304,91 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
   tg.close()
 
+});
+
+// Получаем ссылки на элементы
+const departureInput = document.getElementById('departure');
+const arrivalInput = document.getElementById('arrival');
+const modalOverlay = document.getElementById('modal-overlay');
+const modalInput = document.getElementById('modal-input');
+const suggestionsList = document.getElementById('suggestions');
+const closeBtn = document.getElementsByClassName('close')[0];
+
+// Функция для открытия модального окна
+function openModal(inputId) {
+  modalOverlay.style.display = 'block';
+  modalInput.value = document.getElementById(inputId).value;
+  modalInput.focus();
+}
+
+// Функция для закрытия модального окна
+function closeModal() {
+  modalOverlay.style.display = 'none';
+  suggestionsList.innerHTML = '';
+}
+
+// Функция для отображения подсказок
+function showSuggestions(suggestions) {
+  suggestionsList.innerHTML = '';
+  suggestions.forEach(suggestion => {
+    const li = document.createElement('li');
+    li.textContent = suggestion.label;
+    li.addEventListener('click', () => {
+      selectSuggestion(suggestion);
+      closeModal();
+    });
+    suggestionsList.appendChild(li);
+  });
+}
+
+// Функция для выбора подсказки
+function selectSuggestion(suggestion) {
+  const inputId = modalInput.dataset.for;
+  document.getElementById(inputId).value = suggestion.value;
+}
+
+// Добавляем обработчики событий
+departureInput.addEventListener('click', () => {
+  modalInput.dataset.for = 'departure';
+  openModal('departure');
+});
+
+arrivalInput.addEventListener('click', () => {
+  modalInput.dataset.for = 'arrival';
+  openModal('arrival');
+});
+
+closeBtn.addEventListener('click', closeModal);
+
+// Подключаем автозаполнение для модального окна
+modalInput.addEventListener('input', () => {
+  const request = modalInput.value;
+  if (request.length >= 3) {
+    $.ajax({
+      url: "https://autocomplete.travelpayouts.com/places2",
+      dataType: "json",
+      data: {
+        locale: "ru",
+        types: ["airport","city"],
+        term: request
+      },
+      success: function(data) {
+        var results = [];
+        for(var i = 0; i < Math.min(data.length, 5); i++) {
+          var item = data[i];
+          var label = item.name + ' - ' + item.code;
+          results.push({
+            label: label,
+            value: item.name,
+            code: item.code
+          });
+        }
+        showSuggestions(results);
+      }
+    });
+  } else {
+    suggestionsList.innerHTML = '';
+  }
 });
 
 
