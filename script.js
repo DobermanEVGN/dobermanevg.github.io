@@ -29,7 +29,7 @@ $(function() {
       });
     },
     select: function(event, ui) { 
-      $(this).val(ui.item.value); 
+      $(this).val(`${ui.item.value} - ${ui.item.code}`); 
       return false;
     },
     minLength: 3
@@ -64,7 +64,7 @@ $(function() {
       });
     },
     select: function(event, ui) {
-      $(this).val(ui.item.value);
+      $(this).val(`${ui.item.value} - ${ui.item.code}`);
       return false; 
     },
     minLength: 3
@@ -332,7 +332,7 @@ function showSuggestions(suggestions) {
   suggestionsList.innerHTML = '';
   suggestions.forEach(suggestion => {
     const li = document.createElement('li');
-    li.textContent = suggestion.label;
+    li.innerHTML = `${suggestion.value} <span>${suggestion.code}</span>`;
     li.addEventListener('click', () => {
       selectSuggestion(suggestion);
       closeModal();
@@ -344,7 +344,10 @@ function showSuggestions(suggestions) {
 // Функция для выбора подсказки
 function selectSuggestion(suggestion) {
   const inputId = modalInput.dataset.for;
-  document.getElementById(inputId).value = suggestion.value;
+  const input = document.getElementById(inputId);
+  input.value = `${suggestion.value} - ${suggestion.code}`;
+  input.dataset.code = suggestion.code;
+  input.style.color = "";
 }
 
 // Добавляем обработчики событий
