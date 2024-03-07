@@ -21,13 +21,11 @@
       <div class="input-group">
         <label for="departure">Откуда:</label>
         <input type="text" id="departure" required>
-        <span class="hint" id="departure-hint"></span>
       </div>
 
       <div class="input-group">
         <label for="arrival">Куда:</label>
         <input type="text" id="arrival" required>
-        <span class="hint" id="arrival-hint"></span>
       </div>
 
       <div class="input-group" style="margin-top: 32px; margin-bottom: 14px">
@@ -35,7 +33,7 @@
       </div>
 
       <div class="input-group">
-        <label for="depart-date">Дата отправления:</label>
+        <label for="depart-date">Дата(-ы) отправления:</label>
         <input type="text" readonly id="depart-date" class="datepicker-here" data-language='ru' required>
       </div>
 
@@ -52,12 +50,16 @@
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/air-datepicker/dist/js/datepicker.min.js"></script>
-  <script src="js/datepicker.min.js"></script>
-  <script src="https://momentjs.com/downloads/moment.js"></script>
-  <script src="script.js"></script>
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="input-group">
+        <label for="modal-input">Введите город или аэропорт:</label>
+        <input type="text" id="modal-input" required>
+      </div>
+      <ul id="suggestions"></ul>
+    </div>
+  </div>
 
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -87,8 +89,16 @@
           <input type="checkbox" id="businessClassCheckbox">
         </div>
       </div>
+      <button type="button" id="confirm-btn">OK</button>
     </div>
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker/dist/js/datepicker.min.js"></script>
+  <script src="js/datepicker.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="script.js"></script>
 
 </body>
 
