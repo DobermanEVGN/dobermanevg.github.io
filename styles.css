@@ -201,3 +201,15 @@ input[type="text"] {
 #suggestions li span {
   color: gray;
 }
+
+.modal-overlay .modal-content {
+  position: relative;
+}
+
+#suggestions {
+  position: absolute;
+  top: 90px; /* Отступ от верхней границы модального окна */
+  left: 20px; /* Отступ от левой границы модального окна */
+  right: 20px; /* Отступ от правой границы модального окна */
+  z-index: 1; /* Убедитесь, что список подсказок находится поверх других элементов */
+}
