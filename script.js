@@ -314,12 +314,24 @@ const modalInput = document.getElementById('modal-input');
 const suggestionsList = document.getElementById('suggestions');
 const closeBtn = document.getElementsByClassName('close')[0];
 
-// Функция для открытия модального окна
+// Функция для открытия модального окна и установки значения поля ввода
 function openModal(inputId) {
+  const input = document.getElementById(inputId);
   modalOverlay.style.display = 'block';
-  modalInput.value = document.getElementById(inputId).value;
+  modalInput.value = input.value;
+  modalInput.dataset.for = inputId;
   modalInput.focus();
 }
+
+// Добавляем обработчик события для открытия модального окна для поля "Откуда"
+departureInput.addEventListener('click', () => {
+  openModal('departure');
+});
+
+// Добавляем обработчик события для открытия модального окна для поля "Куда"
+arrivalInput.addEventListener('click', () => {
+  openModal('arrival');
+});
 
 // Функция для закрытия модального окна
 function closeModal() {
@@ -347,20 +359,10 @@ function selectSuggestion(suggestion) {
   const input = document.getElementById(inputId);
   input.value = `${suggestion.value} - ${suggestion.code}`;
   input.dataset.code = suggestion.code;
-  input.style.color = "";
+  input.style.color = ""; // Сбрасываем цвет текста на значение по умолчанию
 }
 
 // Добавляем обработчики событий
-departureInput.addEventListener('click', () => {
-  modalInput.dataset.for = 'departure';
-  openModal('departure');
-});
-
-arrivalInput.addEventListener('click', () => {
-  modalInput.dataset.for = 'arrival';
-  openModal('arrival');
-});
-
 closeBtn.addEventListener('click', closeModal);
 
 // Подключаем автозаполнение для модального окна
