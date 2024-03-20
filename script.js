@@ -301,17 +301,13 @@ let tg = window.Telegram.WebApp;
   function areRequiredFieldsFilled() {
     const departureValue = $('#departure').val().trim();
     const arrivalValue = $('#arrival').val().trim();
-    const departDateValue = $('#depart-date').val();
+    const departDateValue = $('#depart-date').val().trim();
     const emailValue = $('#email').val().trim();
 
     return departureValue !== '' && arrivalValue !== '' && departDateValue !== '' && emailValue !== '';
   }
 
-  $('#departure, #arrival, #email').on('input', function() {
-    checkAndUpdateButton();
-  });
-
-  $('#depart-date').on('input', function() {
+  $('#departure, #arrival, #email, #depart-date').on('input', function() {
     checkAndUpdateButton();
   });
 
