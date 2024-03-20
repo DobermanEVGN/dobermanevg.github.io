@@ -307,10 +307,6 @@ let tg = window.Telegram.WebApp;
     return departureValue !== '' && arrivalValue !== '' && departDateValue !== '' && emailValue !== '';
   }
 
-  $('#departure, #arrival, #depart-date, #email').on('input', function() {
-    checkAndUpdateButton();
-  });
-
   function checkAndUpdateButton() {
     if (areRequiredFieldsFilled()) {
       tg.MainButton.enable();
@@ -320,6 +316,18 @@ let tg = window.Telegram.WebApp;
       tg.MainButton.isVisible = false;
     }
   }
+
+  // Создаем мутационные наблюдатели для отслеживания изменений в полях
+  const departureObserver = new MutationObserver(checkAndUpdateButton);
+  const arrivalObserver = new MutationObserver(checkAndUpdateButton);
+  const departDateObserver = new MutationObserver(checkAndUpdateButton);
+  const emailObserver = new MutationObserver(checkAndUpdateButton);
+
+  // Настраиваем наблюдатели для отслеживания изменений в значениях полей
+  departureObserver.observe($('#departure')[0], { characterData: true, subtree: true });
+  arrivalObserver.observe($('#arrival')[0], { characterData: true, subtree: true });
+  departDateObserver.observe($('#depart-date')[0], { characterData: true, subtree: true });
+  emailObserver.observe($('#email')[0], { characterData: true, subtree: true });
 
 const departureInput = document.getElementById('departure');
 const arrivalInput = document.getElementById('arrival');
