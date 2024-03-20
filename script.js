@@ -307,7 +307,11 @@ let tg = window.Telegram.WebApp;
     return departureValue !== '' && arrivalValue !== '' && departDateValue !== '' && emailValue !== '';
   }
 
-  $('#departure, #arrival, #email, #depart-date').on('input', function() {
+  $('#departure, #arrival').on('autocompletechange', function() {
+    checkAndUpdateButton();
+  });
+
+  $('#depart-date, #email').on('input', function() {
     checkAndUpdateButton();
   });
 
@@ -401,6 +405,5 @@ modalInput.addEventListener('input', () => {
     suggestionsList.innerHTML = '';
   }
 });
-
 
 
