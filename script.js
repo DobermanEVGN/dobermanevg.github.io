@@ -284,47 +284,45 @@ $(function() {
 
 let tg = window.Telegram.WebApp;
 
-tg.expand();  
+  tg.expand();
 
-tg.MainButton.textColor = '#FFFFFF';
+  tg.MainButton.textColor = '#FFFFFF';
+  tg.MainButton.color = '#1877f2';
+  tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
+  tg.MainButton.isVisible = false;
+  tg.MainButton.disable();
 
-tg.MainButton.color = '#1877f2';
+  Telegram.WebApp.onEvent("mainButtonClicked", function() {
+    tg.MainButton.hide();
+    tg.sendData("Dorou");
+    tg.close();
+  });
 
+  function areRequiredFieldsFilled() {
+    const departureValue = $('#departure').val().trim();
+    const arrivalValue = $('#arrival').val().trim();
+    const departDateValue = $('#depart-date').val();
 
-tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
-
-tg.MainButton.isVisible = false;
-
-tg.MainButton.disable();
-
-
-Telegram.WebApp.onEvent("mainButtonClicked", function() {
-
-  tg.MainButton.hide()
-
-  tg.sendData("Dorou")
-
-  tg.close()
-
-});
-
-function areRequiredFieldsFilled() {
-  const departureValue = $('#departure').val();
-  const arrivalValue = $('#arrival').val();
-  const departDateValue = $('#depart-date').val();
-
-  return departureValue && arrivalValue && departDateValue;
-}
-
-$('#departure, #arrival, #depart-date').on('input', function() {
-  if (areRequiredFieldsFilled()) {
-    tg.MainButton.enable();
-    tg.MainButton.isVisible = true;
-  } else {
-    tg.MainButton.disable();
-    tg.MainButton.isVisible = false;
+    return departureValue !== '' && arrivalValue !== '' && departDateValue !== '';
   }
-});
+
+  $('#departure, #arrival').on('autocompleteselect', function() {
+    checkAndUpdateButton();
+  });
+
+  $('#depart-date').on('input', function() {
+    checkAndUpdateButton();
+  });
+
+  function checkAndUpdateButton() {
+    if (areRequiredFieldsFilled()) {
+      tg.MainButton.enable();
+      tg.MainButton.isVisible = true;
+    } else {
+      tg.MainButton.disable();
+      tg.MainButton.isVisible = false;
+    }
+  }
 
 const departureInput = document.getElementById('departure');
 const arrivalInput = document.getElementById('arrival');
