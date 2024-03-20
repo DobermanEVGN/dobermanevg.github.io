@@ -302,11 +302,12 @@ let tg = window.Telegram.WebApp;
     const departureValue = $('#departure').val().trim();
     const arrivalValue = $('#arrival').val().trim();
     const departDateValue = $('#depart-date').val();
+    const emailValue = $('#email').val().trim();
 
-    return departureValue !== '' && arrivalValue !== '' && departDateValue !== '';
+    return departureValue !== '' && arrivalValue !== '' && departDateValue !== '' && emailValue !== '';
   }
 
-  $('#departure, #arrival').on('autocompleteselect', function() {
+  $('#departure, #arrival, #email').on('input', function() {
     checkAndUpdateButton();
   });
 
