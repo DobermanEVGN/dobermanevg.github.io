@@ -293,7 +293,9 @@ tg.MainButton.color = '#1877f2';
 
 tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
 
-tg.MainButton.isVisible = true;
+tg.MainButton.isVisible = false;
+
+tg.MainButton.disable();
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
@@ -306,7 +308,24 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
 });
 
-// Получаем ссылки на элементы
+function areRequiredFieldsFilled() {
+  const departureValue = $('#departure').val();
+  const arrivalValue = $('#arrival').val();
+  const departDateValue = $('#depart-date').val();
+
+  return departureValue && arrivalValue && departDateValue;
+}
+
+$('#departure, #arrival, #depart-date').on('input', function() {
+  if (areRequiredFieldsFilled()) {
+    tg.MainButton.enable();
+    tg.MainButton.isVisible = true;
+  } else {
+    tg.MainButton.disable();
+    tg.MainButton.isVisible = false;
+  }
+});
+
 const departureInput = document.getElementById('departure');
 const arrivalInput = document.getElementById('arrival');
 const modalOverlay = document.getElementById('modal-overlay');
@@ -314,7 +333,6 @@ const modalInput = document.getElementById('modal-input');
 const suggestionsList = document.getElementById('suggestions');
 const closeBtn = document.getElementsByClassName('close')[0];
 
-// Функция для открытия модального окна и установки значения поля ввода
 function openModal(inputId) {
   const input = document.getElementById(inputId);
   modalOverlay.style.display = 'block';
@@ -323,23 +341,19 @@ function openModal(inputId) {
   modalInput.focus();
 }
 
-// Добавляем обработчик события для открытия модального окна для поля "Откуда"
 departureInput.addEventListener('click', () => {
   openModal('departure');
 });
 
-// Добавляем обработчик события для открытия модального окна для поля "Куда"
 arrivalInput.addEventListener('click', () => {
   openModal('arrival');
 });
 
-// Функция для закрытия модального окна
 function closeModal() {
   modalOverlay.style.display = 'none';
   suggestionsList.innerHTML = '';
 }
 
-// Функция для отображения подсказок
 function showSuggestions(suggestions) {
   suggestionsList.innerHTML = '';
   suggestions.forEach(suggestion => {
@@ -353,19 +367,16 @@ function showSuggestions(suggestions) {
   });
 }
 
-// Функция для выбора подсказки
 function selectSuggestion(suggestion) {
   const inputId = modalInput.dataset.for;
   const input = document.getElementById(inputId);
   input.value = `${suggestion.value} - ${suggestion.code}`;
   input.dataset.code = suggestion.code;
-  input.style.color = ""; // Сбрасываем цвет текста на значение по умолчанию
+  input.style.color = "";
 }
 
-// Добавляем обработчики событий
 closeBtn.addEventListener('click', closeModal);
 
-// Подключаем автозаполнение для модального окна
 modalInput.addEventListener('input', () => {
   const request = modalInput.value;
   if (request.length >= 3) {
