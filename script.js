@@ -314,22 +314,6 @@ const modalInput = document.getElementById('modal-input');
 const suggestionsList = document.getElementById('suggestions');
 const closeBtn = document.getElementsByClassName('close')[0];
 
-// Функция для проверки, заполнены ли все поля
-function areAllFieldsFilled() {
-  const departureValue = document.getElementById('departure').value;
-  const arrivalValue = document.getElementById('arrival').value;
-  const emailValue = document.getElementById('email').value;
-  return departureValue && arrivalValue && emailValue;
-}
-
-// Обработчик события для полей ввода
-document.querySelectorAll('input[type="text"]').forEach(input => {
-  input.addEventListener('input', () => {
-    const confirmBtn = document.getElementById('confirm-btn');
-    confirmBtn.disabled = !areAllFieldsFilled();
-  });
-});
-
 // Функция для открытия модального окна и установки значения поля ввода
 function openModal(inputId) {
   const input = document.getElementById(inputId);
