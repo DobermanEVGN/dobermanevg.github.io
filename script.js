@@ -284,51 +284,30 @@ $(function() {
 
 let tg = window.Telegram.WebApp;
 
-  tg.expand();
+tg.expand();  
 
-  tg.MainButton.textColor = '#FFFFFF';
-  tg.MainButton.color = '#1877f2';
-  tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
-  tg.MainButton.isVisible = false;
-  tg.MainButton.disable();
+tg.MainButton.textColor = '#FFFFFF';
 
-  Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    tg.MainButton.hide();
-    tg.sendData("Dorou");
-    tg.close();
-  });
+tg.MainButton.color = '#1877f2';
 
-  function areRequiredFieldsFilled() {
-    const departureValue = $('#departure').val().trim();
-    const arrivalValue = $('#arrival').val().trim();
-    const departDateValue = $('#depart-date').val().trim();
-    const emailValue = $('#email').val().trim();
 
-    return departureValue !== '' && arrivalValue !== '' && departDateValue !== '' && emailValue !== '';
-  }
+tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
 
-  function checkAndUpdateButton() {
-    if (areRequiredFieldsFilled()) {
-      tg.MainButton.enable();
-      tg.MainButton.isVisible = true;
-    } else {
-      tg.MainButton.disable();
-      tg.MainButton.isVisible = false;
-    }
-  }
+tg.MainButton.isVisible = true;
 
-  // Создаем мутационные наблюдатели для отслеживания изменений в полях
-  const departureObserver = new MutationObserver(checkAndUpdateButton);
-  const arrivalObserver = new MutationObserver(checkAndUpdateButton);
-  const departDateObserver = new MutationObserver(checkAndUpdateButton);
-  const emailObserver = new MutationObserver(checkAndUpdateButton);
 
-  // Настраиваем наблюдатели для отслеживания изменений в значениях полей
-  departureObserver.observe($('#departure')[0], { characterData: true, subtree: true });
-  arrivalObserver.observe($('#arrival')[0], { characterData: true, subtree: true });
-  departDateObserver.observe($('#depart-date')[0], { characterData: true, subtree: true });
-  emailObserver.observe($('#email')[0], { characterData: true, subtree: true });
+Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
+  tg.MainButton.hide()
+
+  tg.sendData("Dorou")
+
+  tg.close()
+
+});
+
+
+// Получаем ссылки на элементы
 const departureInput = document.getElementById('departure');
 const arrivalInput = document.getElementById('arrival');
 const modalOverlay = document.getElementById('modal-overlay');
@@ -336,6 +315,7 @@ const modalInput = document.getElementById('modal-input');
 const suggestionsList = document.getElementById('suggestions');
 const closeBtn = document.getElementsByClassName('close')[0];
 
+// Функция для открытия модального окна и установки значения поля ввода
 function openModal(inputId) {
   const input = document.getElementById(inputId);
   modalOverlay.style.display = 'block';
@@ -344,19 +324,23 @@ function openModal(inputId) {
   modalInput.focus();
 }
 
+// Добавляем обработчик события для открытия модального окна для поля "Откуда"
 departureInput.addEventListener('click', () => {
   openModal('departure');
 });
 
+// Добавляем обработчик события для открытия модального окна для поля "Куда"
 arrivalInput.addEventListener('click', () => {
   openModal('arrival');
 });
 
+// Функция для закрытия модального окна
 function closeModal() {
   modalOverlay.style.display = 'none';
   suggestionsList.innerHTML = '';
 }
 
+// Функция для отображения подсказок
 function showSuggestions(suggestions) {
   suggestionsList.innerHTML = '';
   suggestions.forEach(suggestion => {
@@ -370,16 +354,19 @@ function showSuggestions(suggestions) {
   });
 }
 
+// Функция для выбора подсказки
 function selectSuggestion(suggestion) {
   const inputId = modalInput.dataset.for;
   const input = document.getElementById(inputId);
   input.value = `${suggestion.value} - ${suggestion.code}`;
   input.dataset.code = suggestion.code;
-  input.style.color = "";
+  input.style.color = ""; // Сбрасываем цвет текста на значение по умолчанию
 }
 
+// Добавляем обработчики событий
 closeBtn.addEventListener('click', closeModal);
 
+// Подключаем автозаполнение для модального окна
 modalInput.addEventListener('input', () => {
   const request = modalInput.value;
   if (request.length >= 3) {
@@ -408,5 +395,25 @@ modalInput.addEventListener('input', () => {
   } else {
     suggestionsList.innerHTML = '';
   }
+
+function checkFieldsAndToggleButtonState() {
+        // Проверяем, все ли нужные поля заполнены
+        const isAllFieldsFilled = $('#departure').val().trim() !== '' && 
+                                  $('#arrival').val().trim() !== '' && 
+                                  $('#depart-date').val().trim() !== '';
+
+        // Включаем или выключаем главную кнопку в зависимости от заполненности полей
+        if(isAllFieldsFilled) {
+            tg.MainButton.enable(); // Включить кнопку, если все поля заполнены
+        } else {
+            tg.MainButton.disable(); // Выключить кнопку, если хотя бы одно поле не заполнено
+        }
+    }
+
+    // Вешаем обработчики на изменение полей ввода
+    $('#departure, #arrival, #depart-date').on('input', checkFieldsAndToggleButtonState);
+
+    // Проверяем состояние полей при загрузке страницы
+    checkFieldsAndToggleButtonState();
 });
 
