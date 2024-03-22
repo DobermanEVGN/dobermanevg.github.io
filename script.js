@@ -216,8 +216,8 @@ $(function() {
     tg.MainButton.setDisabled(!isFormFilled);
   }
 
-  // Вызываем проверку при загрузке страницы
-  window.addEventListener('load', checkFormFields);
+  // Вызываем проверку после загрузки DOM
+  document.addEventListener('DOMContentLoaded', checkFormFields);
 
   // Добавляем обработчики событий для отслеживания изменений в полях
   document.getElementById('departure').addEventListener('input', checkFormFields);
