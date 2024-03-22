@@ -202,12 +202,6 @@ $(function() {
   tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
   tg.MainButton.isVisible = true;
 
-  Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    tg.MainButton.hide()
-    tg.sendData("Dorou")
-    tg.close()
-  });
-
   // Функция для проверки заполненности полей
   function checkFormFields() {
     const departureInput = document.getElementById('departure');
@@ -229,6 +223,12 @@ $(function() {
   document.getElementById('departure').addEventListener('input', checkFormFields);
   document.getElementById('arrival').addEventListener('input', checkFormFields);
   document.getElementById('depart-date').addEventListener('input', checkFormFields);
+
+  Telegram.WebApp.onEvent("mainButtonClicked", function() {
+    tg.MainButton.hide()
+    tg.sendData("Dorou")
+    tg.close()
+  });
 
   // Получаем ссылки на элементы
   const departureInput = document.getElementById('departure');
