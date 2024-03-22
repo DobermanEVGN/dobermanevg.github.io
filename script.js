@@ -1,19 +1,17 @@
 $(function() {
-
-  // Инициализация автозаполнения для поля "Откуда"
   $("#departure").autocomplete({
     source: function(request, response) {
       $.ajax({
         url: "https://autocomplete.travelpayouts.com/places2",
-        dataType: "json", 
-         {
+        dataType: "json",
+        data: {
           locale: "ru",
-          types: ["airport","city"],
-          term: request.term  
+          types: ["airport", "city"],
+          term: request.term
         },
         success: function(data) {
           var results = [];
-          for(var i = 0; i < Math.min(data.length, 5); i++) {
+          for (var i = 0; i < Math.min(data.length, 5); i++) {
             var item = data[i];
             var label = item.name + ' - ' + item.code;
             results.push({
@@ -26,44 +24,41 @@ $(function() {
         }
       });
     },
-    select: function(event, ui) { 
-      $(this).val(`${ui.item.value} - ${ui.item.code}`); 
-      checkFieldsAndToggleButtonState(); // Проверка состояния кнопки после выбора
+    select: function(event, ui) {
+      $(this).val(`${ui.item.value} - ${ui.item.code}`);
       return false;
     },
     minLength: 3
   });
 
-  // Инициализация автозаполнения для поля "Куда"
   $("#arrival").autocomplete({
     source: function(request, response) {
       $.ajax({
-        url: "https://autocomplete.travelpayouts.com/places2", 
+        url: "https://autocomplete.travelpayouts.com/places2",
         dataType: "json",
-         {
+        data: {
           locale: "ru",
-          types: ["airport","city"],
-          term: request.term   
+          types: ["airport", "city"],
+          term: request.term
         },
         success: function(data) {
           var results = [];
-          for(var i = 0; i < Math.min(data.length, 5); i++) {
+          for (var i = 0; i < Math.min(data.length, 5); i++) {
             var item = data[i];
-            var label = item.name + ' - ' + item.code; 
+            var label = item.name + ' - ' + item.code;
             results.push({
               label: label,
-              value: item.name,  
+              value: item.name,
               code: item.code
             });
           }
-          response(results); 
+          response(results);
         }
       });
     },
     select: function(event, ui) {
       $(this).val(`${ui.item.value} - ${ui.item.code}`);
-      checkFieldsAndToggleButtonState(); // Проверка состояния кнопки после выбора
-      return false; 
+      return false;
     },
     minLength: 3
   });
@@ -95,7 +90,6 @@ $(function() {
     updatePassengerInfo();
   });
 
-  // Обработчики событий для кнопок увеличения и уменьшения количества пассажиров
   $("#adultsMinusBtn").click(function() {
     if (adultsCount > 1) {
       adultsCount = adultsCount - 1;
@@ -126,7 +120,7 @@ $(function() {
       updateCounts();
       updatePassengerInfo();
     }
-  });  
+  });
 
   $("#infantsMinusBtn").click(function() {
     if (infantsCount > 0) {
@@ -152,14 +146,24 @@ $(function() {
   $("#passenger-btn").after('<div id="passenger-info"></div>');
 
   function updatePassengerInfo() {
+    var dates = $("#depart-date").val().split(";");
+    var departDate = dates[0];
+    var returnDate = dates[1];
+
     var totalCount = adultsCount + childrenCount + infantsCount;
     var flightClass = isBusinessClass ? "Бизнес" : "Эконом";
+
     $("#passenger-info").text(totalCount + " чел, " + flightClass);
   }
 
   updatePassengerInfo();
 
-  // Инициализация datepicker для выбора даты
+  $("#adultsPlusBtn, #adultsMinusBtn").click(updatePassengerInfo);
+  $("#childrenPlusBtn, #childrenMinusBtn").click(updatePassengerInfo);
+  $("#infantsPlusBtn, #infantsMinusBtn").click(updatePassengerInfo);
+  $("#businessClassCheckbox").change(updatePassengerInfo);
+  $("#modal").on("hide", updatePassengerInfo);
+
   var minDate = new Date();
   var maxDate = moment().add(2, 'months').toDate();
 
@@ -174,7 +178,9 @@ $(function() {
 
   $("#modal").on("hide", function() {
     var dates = $("#depart-date").val().split(" - ");
-    $("#depart-date").val(dates.join(";"));
+    var departDate = dates[0];
+    var returnDate = dates[1];
+    $("#depart-date").val(departDate + ";" + returnDate);
   });
 
   $("#passenger-btn").click(function() {
@@ -185,44 +191,54 @@ $(function() {
     $("#modal").hide();
   });
 
-  // Проверка заполненности полей и установка состояния кнопки
-  function checkFieldsAndToggleButtonState() {
-    const isAllFieldsFilled = $('#departure').val().trim() !== '' && 
-                              $('#arrival').val().trim() !== '' && 
-                              $('#depart-date').val().trim() !== '';
+  console.log($.fn.datepicker.version);
 
-    // Включаем или выключаем главную кнопку
-    tg.MainButton.isVisible = isAllFieldsFilled;
-  }
-
-  // Проверяем поля при загрузке страницы и при каждом изменении
-  $('#departure, #arrival, #depart-date').on('input change', function() {
-    checkFieldsAndToggleButtonState();
-  });
-
-  checkFieldsAndToggleButtonState(); // Вызовем при инициализации, чтобы установить начальное состояние кнопки
-
-  // Интеграция с Telegram Web App SDK
   let tg = window.Telegram.WebApp;
 
-  tg.expand();  
+  tg.expand();
+
   tg.MainButton.textColor = '#FFFFFF';
   tg.MainButton.color = '#1877f2';
-  tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
+  tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
   tg.MainButton.isVisible = true;
 
   Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    tg.MainButton.hide();
-    tg.sendData("BookingData"); // Отправка данных. Замените "BookingData" на реальные данные бронирования.
-    tg.close();
+    tg.MainButton.hide()
+    tg.sendData("Dorou")
+    tg.close()
   });
 
-  // Функции для модального окна
+  // Функция для проверки заполненности полей
+  function checkFormFields() {
+    const departureInput = document.getElementById('departure');
+    const arrivalInput = document.getElementById('arrival');
+    const departDateInput = document.getElementById('depart-date');
+
+    const isFormFilled = departureInput.value.trim() !== '' &&
+      arrivalInput.value.trim() !== '' &&
+      departDateInput.value.trim() !== '';
+
+    // Обновляем состояние кнопки
+    tg.MainButton.setDisabled(!isFormFilled);
+  }
+
+  // Вызываем проверку при загрузке страницы
+  window.addEventListener('load', checkFormFields);
+
+  // Добавляем обработчики событий для отслеживания изменений в полях
+  document.getElementById('departure').addEventListener('input', checkFormFields);
+  document.getElementById('arrival').addEventListener('input', checkFormFields);
+  document.getElementById('depart-date').addEventListener('input', checkFormFields);
+
+  // Получаем ссылки на элементы
+  const departureInput = document.getElementById('departure');
+  const arrivalInput = document.getElementById('arrival');
   const modalOverlay = document.getElementById('modal-overlay');
   const modalInput = document.getElementById('modal-input');
   const suggestionsList = document.getElementById('suggestions');
   const closeBtn = document.getElementsByClassName('close')[0];
 
+  // Функция для открытия модального окна и установки значения поля ввода
   function openModal(inputId) {
     const input = document.getElementById(inputId);
     modalOverlay.style.display = 'block';
@@ -231,35 +247,63 @@ $(function() {
     modalInput.focus();
   }
 
+  // Добавляем обработчик события для открытия модального окна для поля "Откуда"
   departureInput.addEventListener('click', () => {
     openModal('departure');
   });
 
+  // Добавляем обработчик события для открытия модального окна для поля "Куда"
   arrivalInput.addEventListener('click', () => {
     openModal('arrival');
   });
 
+  // Функция для закрытия модального окна
   function closeModal() {
     modalOverlay.style.display = 'none';
     suggestionsList.innerHTML = '';
   }
 
+  // Функция для отображения подсказок
+  function showSuggestions(suggestions) {
+    suggestionsList.innerHTML = '';
+    suggestions.forEach(suggestion => {
+      const li = document.createElement('li');
+      li.innerHTML = `${suggestion.value} <span>${suggestion.code}</span>`;
+      li.addEventListener('click', () => {
+        selectSuggestion(suggestion);
+        closeModal();
+      });
+      suggestionsList.appendChild(li);
+    });
+  }
+
+  // Функция для выбора подсказки
+  function selectSuggestion(suggestion) {
+    const inputId = modalInput.dataset.for;
+    const input = document.getElementById(inputId);
+    input.value = `${suggestion.value} - ${suggestion.code}`;
+    input.dataset.code = suggestion.code;
+    input.style.color = ""; // Сбрасываем цвет текста на значение по умолчанию
+  }
+
+  // Добавляем обработчики событий
   closeBtn.addEventListener('click', closeModal);
 
+  // Подключаем автозаполнение для модального окна
   modalInput.addEventListener('input', () => {
     const request = modalInput.value;
     if (request.length >= 3) {
       $.ajax({
         url: "https://autocomplete.travelpayouts.com/places2",
         dataType: "json",
-         {
+        data: {
           locale: "ru",
-          types: ["airport","city"],
+          types: ["airport", "city"],
           term: request
         },
         success: function(data) {
           var results = [];
-          for(var i = 0; i < Math.min(data.length, 5); i++) {
+          for (var i = 0; i < Math.min(data.length, 5); i++) {
             var item = data[i];
             var label = item.name + ' - ' + item.code;
             results.push({
@@ -275,25 +319,4 @@ $(function() {
       suggestionsList.innerHTML = '';
     }
   });
-
-  function showSuggestions(results) {
-    suggestionsList.innerHTML = '';
-    results.forEach(function(suggestion) {
-      const li = document.createElement('li');
-      li.textContent = suggestion.label;
-      li.onclick = function() {
-        selectSuggestion(suggestion);
-        closeModal();
-        checkFieldsAndToggleButtonState(); // Обновляем состояние кнопки после выбора подсказки
-      };
-      suggestionsList.appendChild(li);
-    });
-  }
-
-  function selectSuggestion(suggestion) {
-    const inputId = modalInput.dataset.for;
-    const input = document.getElementById(inputId);
-    input.value = `${suggestion.value} - ${suggestion.code}`;
-    input.dataset.code = suggestion.code;
-  }
 });
