@@ -396,22 +396,27 @@ modalInput.addEventListener('input', () => {
   }
 });
 
-// Функция для проверки заполненности всех обязательных полей
-function поляЗаполнены() {
-  const откуда = $("#departure").val().trim();
-  const куда = $("#arrival").val().trim();
-  const датаОтправления = $("#depart-date").val().trim();
+ // Function to check if all required fields are filled
+  function areFieldsFilled() {
+    const departure = $("#departure").val().trim();
+    const arrival = $("#arrival").val().trim();
+    const departDate = $("#depart-date").val().trim();
 
-  return откуда !== "" && куда !== "" && датаОтправления !== "";
-}
+    return departure !== "" && arrival !== "" && departDate !== "";
+  }
 
-// Обновление состояния кнопки Telegram на основе проверки полей
-function обновитьСостояниеКнопки() {
-  tg.MainButton.disabled = !поляЗаполнены();
-}
+  // Update Telegram button state based on field validation
+  function updateButtonState() {
+    tg.MainButton.disabled = !areFieldsFilled();
+  }
 
-// Первоначальная проверка и обновление состояния кнопки
-обновитьСостояниеКнопки();
+  // Initial validation and button state update (ADDED)
+  $(document).ready(function() { // Ensure DOM is ready
+    updateButtonState();
+  });
 
-// Обработчики событий для изменения полей ввода
-$("#departure, #arrival, #depart-date").on("input change", обновитьСостояниеКнопки);
+  // Event listeners for input field changes
+  $("#departure, #arrival, #depart-date").on("input change", updateButtonState);
+
+
+
