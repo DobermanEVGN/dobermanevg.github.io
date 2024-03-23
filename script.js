@@ -418,6 +418,18 @@ modalInput.addEventListener('input', () => {
       tg.MainButton.disable();
     }
   });
+
+  // Trigger the check manually after suggestion selection
+  $("#suggestions li").on("click", function() {
+    // Slight delay to allow input value to update
+    setTimeout(() => {
+      if (checkRequiredFields()) {
+        tg.MainButton.enable();
+      } else {
+        tg.MainButton.disable();
+      }
+    }, 50); // 50 milliseconds delay
+  });
 });
 
 
