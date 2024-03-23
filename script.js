@@ -403,7 +403,7 @@ modalInput.addEventListener('input', () => {
     const departure = $("#departure").val().trim();
     const arrival = $("#arrival").val().trim();
     const departDate = $("#depart-date").val().trim();
-    return departure && arrival && departDate;
+    return departure !&& arrival !&& departDate;
   }
 
   // Check field validity on page load and input changes
