@@ -408,8 +408,8 @@ modalInput.addEventListener('input', () => {
 
   // Check field validity on page load and input changes
   function updateButtonState() {
-    tg.MainButton.disabled = !areFieldsFilled();
-  }
+  tg.MainButton.disabled = !areFieldsFilled(); // Set to true to disable
+}
 
   updateButtonState(); // Check on page load
 
