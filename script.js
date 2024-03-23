@@ -395,30 +395,30 @@ modalInput.addEventListener('input', () => {
     suggestionsList.innerHTML = '';
   }
 
+
+});
+
 // Function to check if all required fields are filled
   function areFieldsFilled() {
     const departure = $("#departure").val().trim();
     const arrival = $("#arrival").val().trim();
     const departDate = $("#depart-date").val().trim();
-
-    return departure !== "" && arrival !== "" && departDate !== "";
+    return departure && arrival && departDate;
   }
 
-  // Update Telegram button state based on field validation
+  // Check field validity on page load and input changes
   function updateButtonState() {
     tg.MainButton.disabled = !areFieldsFilled();
   }
 
-  // Initial validation and button state update (ADDED)
-  $(document).ready(function() { // Ensure DOM is ready
-    updateButtonState();
-  });
+  updateButtonState(); // Check on page load
 
-  // Event listeners for input field changes
-  $("#departure, #arrival, #depart-date").on("input change", updateButtonState);
+  // Check on input changes
+  $("#departure, #arrival, #depart-date").on("input", updateButtonState);
+
+  // ... (rest of the code) ...
+
 });
-
- 
 
 
 
