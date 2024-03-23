@@ -396,7 +396,7 @@ modalInput.addEventListener('input', () => {
   }
 
 
-});
+
 
 // Function to check if all required fields are filled
   function areFieldsFilled() {
@@ -408,8 +408,8 @@ modalInput.addEventListener('input', () => {
 
   // Check field validity on page load and input changes
   function updateButtonState() {
-  tg.MainButton.disabled = !areFieldsFilled(); // Set to true to disable
-}
+    tg.MainButton.disabled = !areFieldsFilled(); // Set to true to disable
+  }
 
   updateButtonState(); // Check on page load
 
@@ -417,7 +417,6 @@ modalInput.addEventListener('input', () => {
   $("#departure, #arrival, #depart-date").on("input", updateButtonState);
 
   // ... (rest of the code) ...
-
 });
 
 
