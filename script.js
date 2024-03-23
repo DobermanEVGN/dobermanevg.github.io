@@ -399,24 +399,25 @@ modalInput.addEventListener('input', () => {
 
 
 // Function to check if all required fields are filled
-  function areFieldsFilled() {
-    const departure = $("#departure").val().trim();
-    const arrival = $("#arrival").val().trim();
-    const departDate = $("#depart-date").val().trim();
+  function checkRequiredFields() {
+    const departure = $("#departure").val();
+    const arrival = $("#arrival").val();
+    const departDate = $("#depart-date").val();
+
     return departure && arrival && departDate;
   }
 
-  // Check field validity on page load and input changes
-  function updateButtonState() {
-    tg.MainButton.disabled = !areFieldsFilled(); // Set to true to disable
-  }
+  // Initially disable the main button
+  tg.MainButton.disable();
 
-  updateButtonState(); // Check on page load
-
-  // Check on input changes
-  $("#departure, #arrival, #depart-date").on("input", updateButtonState);
-
-  // ... (rest of the code) ...
+  // Check and update button state on input changes
+  $("#departure, #arrival, #depart-date").on("input change", function() {
+    if (checkRequiredFields()) {
+      tg.MainButton.enable();
+    } else {
+      tg.MainButton.disable();
+    }
+  });
 });
 
 
