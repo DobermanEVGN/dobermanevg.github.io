@@ -394,9 +394,8 @@ modalInput.addEventListener('input', () => {
   } else {
     suggestionsList.innerHTML = '';
   }
-});
 
- // Function to check if all required fields are filled
+// Function to check if all required fields are filled
   function areFieldsFilled() {
     const departure = $("#departure").val().trim();
     const arrival = $("#arrival").val().trim();
@@ -417,6 +416,9 @@ modalInput.addEventListener('input', () => {
 
   // Event listeners for input field changes
   $("#departure, #arrival, #depart-date").on("input change", updateButtonState);
+});
+
+ 
 
 
 
