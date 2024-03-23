@@ -407,7 +407,7 @@ modalInput.addEventListener('input', () => {
 
   // Update Telegram button state based on field validation
   function updateButtonState() {
-    tg.MainButton.disabled = areFieldsFilled();
+    tg.MainButton.disabled = !areFieldsFilled();
   }
 
   // Initial validation and button state update (ADDED)
