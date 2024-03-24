@@ -400,16 +400,16 @@ modalInput.addEventListener('input', () => {
 
 // Function to check if all required fields on the main page are filled
   function areRequiredFieldsFilled() {
-    const departure = $("#departure").val();
-    const arrival = $("#arrival").val();
-    const departDate = $("#depart-date").val();
+    const departure = $("#departure").val(); // "Откуда" field
+    const arrival = $("#arrival").val(); // "Куда" field
+    const departDate = $("#depart-date").val(); // Datepicker field
+    const email = $("#email").val(); // Email field
 
-    return departure && arrival && departDate;
+    return departure && arrival && departDate && email;
   }
 
   // Function to update the main button's state
   function updateMainButtonState() {
-    areRequiredFieldsFilled();
     if (areRequiredFieldsFilled()) {
       tg.MainButton.enable();
       tg.MainButton.color = '#1877f2'; // Set active color
@@ -422,8 +422,8 @@ modalInput.addEventListener('input', () => {
   // Check field states on page load
   updateMainButtonState();
 
-  // Update button state on input changes on the main page ONLY
-  $("#departure, #arrival, #depart-date").on("input change", updateMainButtonState);
+  // Update button state on input changes for the specified fields
+  $("#departure, #arrival, #depart-date, #email").on("input change", updateMainButtonState);
 });
 
 
