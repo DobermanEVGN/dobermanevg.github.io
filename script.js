@@ -409,6 +409,7 @@ modalInput.addEventListener('input', () => {
 
   // Function to update the main button's state
   function updateMainButtonState() {
+    areRequiredFieldsFilled();
     if (areRequiredFieldsFilled()) {
       tg.MainButton.enable();
       tg.MainButton.color = '#1877f2'; // Set active color
@@ -421,7 +422,7 @@ modalInput.addEventListener('input', () => {
   // Check field states on page load
   updateMainButtonState();
 
-  // Update button state on input changes
+  // Update button state on input changes on the main page ONLY
   $("#departure, #arrival, #depart-date").on("input change", updateMainButtonState);
 });
 
