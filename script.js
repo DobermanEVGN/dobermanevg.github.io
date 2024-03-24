@@ -423,7 +423,7 @@ modalInput.addEventListener('input', () => {
   updateMainButtonState();
 
   // Update button state on input changes for the specified fields
-  $("#hasDepartureData, #hasArrivalData, #hasDepartDate, #hasEmail").on("input change", updateMainButtonState);
+  $("#departure, #arrival, #depart-date, #email").on("input change", updateMainButtonState);
 });
 
 
