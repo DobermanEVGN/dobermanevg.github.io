@@ -402,8 +402,8 @@ modalInput.addEventListener('input', () => {
   function areRequiredFieldsFilled() {
     const hasDepartureData = $("#departure").text().trim() !== ""; // Проверка "Откуда"
     const hasArrivalData = $("#arrival").text().trim() !== ""; // Проверка "Куда"
-    const hasDepartDate = $("#depart-date").val().trim() !== ""; // Проверка даты
-    const hasEmail = $("#email").val().trim() !== ""; // Проверка email
+    const hasDepartDate = $("#depart-date").val(); // Проверка даты
+    const hasEmail = $("#email").val(); // Проверка email
 
     return hasDepartureData && hasArrivalData && hasDepartDate && hasEmail;
   }
