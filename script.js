@@ -398,14 +398,14 @@ modalInput.addEventListener('input', () => {
 
 
 
-// Function to check if all required fields on the main page are filled
+// Функция для проверки заполненности всех обязательных полей на главной странице
   function areRequiredFieldsFilled() {
-    const departure = $("#departure").val(); // "Откуда" field
-    const arrival = $("#arrival").val(); // "Куда" field
-    const departDate = $("#depart-date").val(); // Datepicker field
-    const email = $("#email").val(); // Email field
+    const hasDepartureData = $("#departure").data("code"); // Проверка наличия данных "Откуда"
+    const arrival = $("#arrival").data("code"); // "Куда" (код аэропорта/города)
+    const departDate = $("#depart-date").val(); // Поле выбора даты
+    const email = $("#email").val(); // Поле email
 
-    return departure && arrival && departDate && email;
+    return hasDepartureData && arrival && departDate && email;
   }
 
   // Function to update the main button's state
