@@ -398,8 +398,8 @@ modalInput.addEventListener('input', () => {
 
 
 
-// Function to check if all required fields are filled
-  function checkRequiredFields() {
+// Function to check if all required fields on the main page are filled
+  function areRequiredFieldsFilled() {
     const departure = $("#departure").val();
     const arrival = $("#arrival").val();
     const departDate = $("#depart-date").val();
@@ -407,29 +407,22 @@ modalInput.addEventListener('input', () => {
     return departure && arrival && departDate;
   }
 
-  // Initially disable the main button
-  tg.MainButton.disable();
-
-  // Check and update button state on input changes
-  $("#departure, #arrival, #depart-date").on("input change", function() {
-    if (checkRequiredFields()) {
+  // Function to update the main button's state
+  function updateMainButtonState() {
+    if (areRequiredFieldsFilled()) {
       tg.MainButton.enable();
+      tg.MainButton.color = '#1877f2'; // Set active color
     } else {
       tg.MainButton.disable();
+      tg.MainButton.color = '#cccccc'; // Set inactive color
     }
-  });
+  }
 
-  // Trigger the check manually after suggestion selection
-  $("#suggestions li").on("click", function() {
-    // Slight delay to allow input value to update
-    setTimeout(() => {
-      if (checkRequiredFields()) {
-        tg.MainButton.enable();
-      } else {
-        tg.MainButton.disable();
-      }
-    }, 50); // 50 milliseconds delay
-  });
+  // Check field states on page load
+  updateMainButtonState();
+
+  // Update button state on input changes
+  $("#departure, #arrival, #depart-date").on("input change", updateMainButtonState);
 });
 
 
