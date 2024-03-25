@@ -398,32 +398,28 @@ modalInput.addEventListener('input', () => {
 
 
 
-   // Функция для проверки заполненности всех обязательных полей на главной странице
-  function areRequiredFieldsFilled() {
-    const hasDepartureData = $("#departure").text().trim() !== ""; // Проверка "Откуда"
-    const hasArrivalData = $("#arrival").text().trim() !== ""; // Проверка "Куда"
-    const hasDepartDate = $("#depart-date").val(); // Проверка даты
-    const hasEmail = $("#email").val(); // Проверка email
-
-    return hasDepartureData && hasArrivalData && hasDepartDate && hasEmail;
+   // Function to check if all fields have text
+  function areAllFieldsFilled() {
+    return $("#departure").val() !== "" &&
+           $("#arrival").val() !== "" &&
+           $("#depart-date").val() !== "" &&
+           $("#email").val() !== "";
   }
 
-  // Function to update the main button's state
-  function updateMainButtonState() {
-    if (areRequiredFieldsFilled()) {
+  // Function to update the button state based on field validation
+  function updateButtonState() {
+    if (areAllFieldsFilled()) {
       tg.MainButton.enable();
-      tg.MainButton.color = '#1877f2'; // Set active color
     } else {
       tg.MainButton.disable();
-      tg.MainButton.color = '#cccccc'; // Set inactive color
     }
   }
 
-  // Check field states on page load
-  updateMainButtonState();
+  // Initial button state update
+  updateButtonState();
 
-  // Update button state on input changes for the specified fields
-  $("#departure, #arrival, #depart-date, #email").on("input change", updateMainButtonState);
+  // Event listeners for field changes
+  $("#departure, #arrival, #depart-date, #email").on("input change", updateButtonState);
 });
 
 
