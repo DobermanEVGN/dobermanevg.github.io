@@ -427,8 +427,7 @@ modalInput.addEventListener('input', () => {
     }
   }
 
-  // Initial button state update (should be disabled initially)
-  tg.MainButton.disable(); // Disable the button on page load
+  
 
   // Manually call updateButtonState once to ensure immediate update
   updateButtonState();
