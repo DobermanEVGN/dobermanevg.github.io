@@ -295,6 +295,8 @@ tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
 
 tg.MainButton.isVisible = true;
 
+tg.MainButton.disable();
+
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
