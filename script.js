@@ -418,8 +418,8 @@ modalInput.addEventListener('input', () => {
   // Initial button state update
   updateButtonState();
 
-  // Event listeners for field changes
-  $("#departure, #arrival, #depart-date, #email").on("input change", updateButtonState);
+  // Event listeners for field changes (using keyup for maximum frequency)
+  $("#departure, #arrival, #depart-date, #email").on("keyup", updateButtonState);
 });
 
 
