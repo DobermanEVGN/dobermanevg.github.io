@@ -415,8 +415,8 @@ modalInput.addEventListener('input', () => {
     }
   }
 
-  // Initial button state update
-  updateButtonState();
+  // Initial button state update (should be disabled initially)
+  tg.MainButton.disable(); // Disable the button on page load
 
    // Set a very small time interval (e.g., 10 milliseconds)
   const checkInterval = 10; // Adjust this value as needed
