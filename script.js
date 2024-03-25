@@ -398,13 +398,18 @@ modalInput.addEventListener('input', () => {
 
 
 
-   // Function to check if all fields have text
+   
+
+  $(document).ready(function() {
+    // Function to check if all fields have text
   function areAllFieldsFilled() {
     return $("#departure").val() !== "" &&
            $("#arrival").val() !== "" &&
            $("#depart-date").val() !== "" &&
            $("#email").val() !== "";
   }
+
+  // ... (existing code) ...
 
   // Function to update the button state based on field validation
   function updateButtonState() {
@@ -416,9 +421,7 @@ modalInput.addEventListener('input', () => {
   }
 
   // Initial button state update (should be disabled initially)
-  setTimeout(function() {
-    tg.MainButton.disable(); // Disable the button after a slight delay
-  }, 1); // Delay of 1 millisecond
+  tg.MainButton.disable(); // Disable the button on page load
 
   // Manually call updateButtonState once to ensure immediate update
   updateButtonState();
@@ -426,8 +429,11 @@ modalInput.addEventListener('input', () => {
   // Set a very small time interval (e.g., 10 milliseconds)
   const checkInterval = 10; // Adjust this value as needed
 
-  // Use setInterval to repeatedly check field values
+  // Move setInterval inside the $(document).ready(function() { ... }); block
   setInterval(updateButtonState, checkInterval);
+
+  // ... (rest of the code) ...
+});
 });
 
 
