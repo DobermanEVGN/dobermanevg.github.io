@@ -295,11 +295,9 @@ tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';
 
 tg.MainButton.isVisible = false;
 
-tg.MainButton.disable();
 
-window.onload = function() {
-  tg.MainButton.show(); // Make the button visible
-}
+
+
 
 // Schedule the button to appear after 1 second (1000 milliseconds)
 //setTimeout(showButton, 3000);
@@ -423,11 +421,9 @@ modalInput.addEventListener('input', () => {
   // Function to update the button state based on field validation
   function updateButtonState() {
     if (areAllFieldsFilled()) {
-      tg.MainButton.enable();
-      tg.MainButton.color = '#1877f2'; // Set active color
+      tg.MainButton.show();
     } else {
-      tg.MainButton.disable();
-      tg.MainButton.color = '#05316b'; // Set inactive color (grayed-out)
+      tg.MainButton.hide();
     }
   }
 
