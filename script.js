@@ -409,7 +409,7 @@ modalInput.addEventListener('input', () => {
 
    
 
-  document.addEventListener("DOMContentLoaded", function() {
+  $(document).ready(function() {
     // Function to check if all fields have text
   function areAllFieldsFilled() {
     return $("#departure").val() !== "" &&
