@@ -293,9 +293,16 @@ tg.MainButton.color = '#1877f2';
 
 tg.MainButton.text = 'ПОДТВЕРДИТЬ И ПРОДОЛЖИТЬ';  
 
-tg.MainButton.isVisible = true;
+tg.MainButton.isVisible = false;
 
 tg.MainButton.disable();
+
+function showButton() {
+  tg.MainButton.show(); // Make the button visible
+}
+
+// Schedule the button to appear after 1 second (1000 milliseconds)
+setTimeout(showButton, 1000);
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
