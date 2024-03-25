@@ -297,12 +297,12 @@ tg.MainButton.isVisible = false;
 
 tg.MainButton.disable();
 
-function showButton() {
+window.onload = function() {
   tg.MainButton.show(); // Make the button visible
 }
 
 // Schedule the button to appear after 1 second (1000 milliseconds)
-setTimeout(showButton, 3000);
+//setTimeout(showButton, 3000);
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
