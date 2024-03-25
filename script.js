@@ -302,7 +302,7 @@ function showButton() {
 }
 
 // Schedule the button to appear after 1 second (1000 milliseconds)
-setTimeout(showButton, 1000);
+setTimeout(showButton, 3000);
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
