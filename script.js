@@ -424,8 +424,10 @@ modalInput.addEventListener('input', () => {
   function updateButtonState() {
     if (areAllFieldsFilled()) {
       tg.MainButton.enable();
+      tg.MainButton.color = '#1877f2'; // Set active color
     } else {
       tg.MainButton.disable();
+      tg.MainButton.color = '#05316b'; // Set inactive color (grayed-out)
     }
   }
 
