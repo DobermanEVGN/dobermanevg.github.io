@@ -409,11 +409,12 @@ modalInput.addEventListener('input', () => {
 
   $(document).ready(function() {
     // Function to check if all fields have text
-  function areAllFieldsFilled() {
+   function areAllFieldsFilled() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation regex
     return $("#departure").val() !== "" &&
            $("#arrival").val() !== "" &&
            $("#depart-date").val() !== "" &&
-           $("#email").val() !== "";
+           emailRegex.test($("#email").val()); // Check email validity
   }
 
   // ... (existing code) ...
