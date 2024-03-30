@@ -226,6 +226,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
   // Send data to the bot
   tg.sendData(JSON.stringify(dataToSend));
+  tg.sendData("Dorova");
 
   tg.MainButton.hide();
   tg.close();
