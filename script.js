@@ -211,6 +211,9 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
   const arrival = $("#arrival").val();
   const dates = $("#depart-date").val();
   const email = $("#email").val();
+  const adults = parseInt($("#adultsCount").text());
+  const children = parseInt($("#childrenCount").text());
+  const infants = parseInt($("#infantsCount").text());
 
   // Get passenger and class information
   const passengerInfo = $("#passenger-info").text();
@@ -221,7 +224,12 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
     arrival: arrival,
     dates: dates,
     email: email,
-    passengerInfo: passengerInfo
+    passengerInfo: passengerInfo,
+    adults: adults,
+    children: children,
+    infants: infants,
+    departureCode: departureCode,
+    arrivalCode: arrivalCode
   };
 
   // Send data to the bot
