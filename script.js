@@ -211,9 +211,6 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
   const arrival = $("#arrival").val();
   const dates = $("#depart-date").val();
   const email = $("#email").val();
-  const adults = parseInt($("#adultsCount").text());
-  const children = parseInt($("#childrenCount").text());
-  const infants = parseInt($("#infantsCount").text());
 
   // Get passenger and class information
   const passengerInfo = $("#passenger-info").text();
@@ -224,10 +221,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
     arrival: arrival,
     dates: dates,
     email: email,
-    passengerInfo: passengerInfo,
-    adults: adults,
-    children: children,
-    infants: infants
+    passengerInfo: passengerInfo
   };
 
   // Send data to the bot
@@ -244,6 +238,10 @@ const modalOverlay = document.getElementById('modal-overlay');
 const modalInput = document.getElementById('modal-input');
 const suggestionsList = document.getElementById('suggestions');
 const closeBtn = document.getElementsByClassName('close')[0];
+
+// Initialize variables outside the function to maintain their values
+let departureCode = ""; 
+let arrivalCode = ""; 
 
 // Function to open the modal and set the input field value
 function openModal(inputId) {
@@ -288,7 +286,16 @@ function showSuggestions(suggestions) {
 function selectSuggestion(suggestion) {
   const inputId = modalInput.dataset.for;
   const input = document.getElementById(inputId);
-  input.value = `${suggestion.value} - ${suggestion.code}`;
+
+  // Store the code based on the input field
+  if (inputId === "departure") {
+    departureCode = suggestion.code;
+  } else if (inputId === "arrival") {
+    arrivalCode = suggestion.code;
+  }
+
+  // Update the input field with name and code (for display purposes)
+  input.value = `${suggestion.value} - ${suggestion.code}`; 
   input.dataset.code = suggestion.code;
   input.style.color = ""; // Reset text color to default
 }
@@ -354,6 +361,5 @@ modalInput.addEventListener('input', () => {
     // Move setInterval inside the $(document).ready(function() { ... }); block
     setInterval(updateButtonState, checkInterval);
   });
-});
-
+}); 
 
